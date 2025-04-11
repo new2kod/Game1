@@ -9,11 +9,11 @@ class SpeechBubble:
         
         # Speech phrases for each character
         self.speech_phrases = {
-            'Niamh': ["I'm Niamh!", "I love painting!", "Herbs are fascinating!"],
+            'Niamh': ["Hello, I'm Niamh!", "I love painting!", "Herbs are fascinating!"],
             'Gus': ["Woof! Woof!", "I love kiffiffeffess!", "Treats please!"],
             'Nikki': ["Hi there!", "Garden party anyone?", "What theme should I choose?"],
-            'Paul': ["Where did I park?", "When did I park it?", "Did I park my car?"],
-            'Tony': ["Pitu won't let me drive!", "She ate all the snacks!", "She drives better than me!"],
+            'Paul': ["Where did I park?", "When did I park it?", "Have you seen my car?"],
+            'Tony': ["Pitu won't let me drive!", "My dog loves treats!", "She drives better than me!"],
             'Keelan': ["I love pizza!", "Fine salami is the best!", "Want to hear a riddle?"],
             'Tain': ["Good day, old chap!", "Fascinating migratory patterns!", "Ha ha ha!"],
             'Chris': ["I almost lost my ear!", "A kitchen fell from the sky!", "I love cool games!"],

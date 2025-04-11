@@ -28,3 +28,4 @@ class Food(pygame.sprite.Sprite):
         # Make sprite twice the size
         original_width = self.image.get_width()
         original_height = self.image.get_height()
+        self.image = pygame.transform.scale(self.image, (original_width * 2, original_height * 2))

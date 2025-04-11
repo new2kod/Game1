@@ -37,13 +37,13 @@ class NPCMovement:
             self.move_progress = 0
         else:
             # Reset timer for next potential movement
-            self.movement_delay = random.randint(2000, 7000)
+            self.movement_delay = random.randint(3000, 8000)
             
     def continue_movement(self):
         if self.move_progress >= self.move_distance:
             # Movement complete
             self.is_moving = False
-            self.movement_delay = random.randint(1000, 6000)
+            self.movement_delay = random.randint(3000, 8000)
             return
             
         # Move in the chosen direction
@@ -59,7 +59,7 @@ class NPCMovement:
         self.move_progress += self.move_speed
         
         # Ensure NPC doesn't move too far from original position
-        max_distance = 200
+        max_distance = 100
         dx = self.npc.rect.x - self.original_x
         dy = self.npc.rect.y - self.original_y
         distance = math.sqrt(dx * dx + dy * dy)
