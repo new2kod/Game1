@@ -8,6 +8,8 @@ from food import Food
 from sign import Sign
 from npc_movement import NPCMovement
 from game_modifications import GameModifications
+from start_screen import StartScreen
+from speech_bubble import SpeechBubble
 
 # Initialize pygame
 pygame.init()
@@ -116,7 +118,7 @@ class NPC(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
         self.name = name
-        self.interaction_radius = 50  # Increased due to larger sprites
+        self.interaction_radius = 100  # Increased due to larger sprites
         self.dialogues = []
         self.questions = []
         self.current_dialogue = 0
@@ -157,7 +159,11 @@ class NPC(pygame.sprite.Sprite):
         
     def reset_wrong_answers(self):
         self.wrong_answers = 0
+      
+      # Create speech bubble system
 
+        self.speech_bubbles = SpeechBubble()
+        
 class GusMovement:
     """Class to handle Gus's movement around Niamh with different speeds and patterns."""
     def __init__(self, gus_sprite, niamh_sprite):
@@ -165,7 +171,7 @@ class GusMovement:
         self.niamh = niamh_sprite
         self.angle = 0
         self.distance = 80  # Base distance from Niamh
-        self.speed = 0.01   # Base rotation speed
+        self.speed = 0.02   # Base rotation speed
         self.pattern_timer = 0
         self.current_pattern = 0
         self.pattern_duration = 5000  # 5 seconds per pattern
@@ -468,7 +474,7 @@ class SoundManager:
         
         # Set volume levels
         self.interaction_sound.set_volume(0.5)
-        self.correct_sound.set_volume(0.4)
+        self.correct_sound.set_volume(0.5)
         self.wrong_sound.set_volume(0.5)
         
         # Background music
@@ -617,13 +623,13 @@ class Game:
         npc_data = [
             (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2, "niamh", "Niamh"),
             (SCREEN_WIDTH // 2 + 100, SCREEN_HEIGHT // 2, "gus", "Gus"),
-            (700, 300, "nikki", "Nikki"),
-            (300, 350, "paul", "Paul"),
-            (100, 300, "tony", "Tony"),
-            (650, 600, "keelan", "Keelan"),
-            (500, 300, "tain", "Tain"),
-            (400, 400, "chris", "Chris"),
-            (400, 300, "magda", "Magda")
+            (400, 300, "nikki", "Nikki"),
+            (500, 350, "paul", "Paul"),
+            (600, 300, "tony", "Tony"),
+            (700, 350, "keelan", "Keelan"),
+            (300, 450, "tain", "Tain"),
+            (800, 500, "chris", "Chris"),
+            (200, 550, "magda", "Magda")
         ]
         
         for x, y, sprite_name, name in npc_data:
@@ -636,38 +642,36 @@ class Game:
         # Set up dialogues and questions for each NPC
         if npc.name == "Niamh":
             npc.dialogues = [
-                "Hello, I'm Niamh. I love Gus, painting & smok...",
-                "I mean, herbs.. ",
-                "I also enjoy cooking. Maybe you'd like meatballs for dinner?",
-                "I'm usually in a better mood later in the day.",
-                "Get your shit together and I might give you a kiss!"
+                "Hello, I'm Niamh. I love painting and finding herbs.",
+                "I also enjoy cooking. Maybe we can talk more later?",
+                "I'm usually in a better mood later in the day."
             ]
             npc.questions = [
                 {
-                    "question": "What do I enjoy doing most?",
-                    "options": ["Singing", "Painting", "Dancing", "Biking"],
+                    "question": "What do I enjoy doing?",
+                    "options": ["Singing", "Painting", "Dancing", "Swimming"],
                     "correct_answers": [1]  # Painting (index 1)
                 },
                 {
                     "question": "When am I in the best mood?",
-                    "options": ["Early morning", "Before breakfast", "Later in the day", "Midnight"],
+                    "options": ["Early morning", "Midday", "Later in the day", "Midnight"],
                     "correct_answers": [2]  # Later in the day (index 2)
                 },
                 {
                     "question": "What do I make that's the best?",
-                    "options": ["Tweets", "Uber Bookings", "Cooking", "Clothes"],
+                    "options": ["Music", "Paintings", "Cooking", "Clothes"],
                     "correct_answers": [2]  # Cooking (index 2)
                 }
             ]
         elif npc.name == "Gus":
             npc.dialogues = [
-                "Woof, Woof! I'm Gus (the good boy!)",
-                "Wooh, flepp! Niamhy gives the best kiffesss & belly scrubbies",
-                "Woof! Whef, Fleppy Bebby! She loves it when I wake her up in the morning!",
+                "Woof! Woof! (I'm Gus, the dog!)",
+                "Woof! (Niamh gives the best scratches!)",
+                "Woof! Woof! (She knows all the best cat spots!)"
             ]
             npc.questions = [
                 {
-                    "question": "Woof! What am I out looking for?",
+                    "question": "Woof! (What am I looking for?)",
                     "options": ["Bones", "Cats", "Toys", "Food"],
                     "correct_answers": [1]  # Cats (index 1)
                 },
@@ -678,8 +682,8 @@ class Game:
                 },
                 {
                     "question": "Woof! (What do I want right now?)",
-                    "options": ["A walk", "A nap", "A ball", "To play"],
-                    "correct_answers": [2]  # A ball (index 2)
+                    "options": ["A walk", "A nap", "A snack", "To play"],
+                    "correct_answers": [2]  # A snack (index 2)
                 }
             ]
         elif npc.name == "Nikki":
@@ -746,23 +750,21 @@ class Game:
                     "correct_answers": [1]  # Dishes (index 1)
                 },
                 {
-                    "question": "Pitu wont allow me in the bedroom any more.. What would Niamh do?",
-                    "options": ["Say no Pitu", "Lock Pitu out", "Sleep on the sofa", "Baricade the door"],
-                    "correct_answers": [3]  # Baricade the door (index 1)
+                    "question": "What am I wondering about Niamh?",
+                    "options": ["Her age", "Her secret for finding herbs", "Her favorite color", "Her hometown"],
+                    "correct_answers": [1]  # Her secret for finding herbs (index 1)
                 }
             ]
         elif npc.name == "Keelan":
             npc.dialogues = [
-                "Greetings, I'm Keelan. I mumbleriddles and you know.. ",
-                "Pizza... goes well with herbs.",
-                "Did you know the Ovenstoven Mega 2000 can bake whole family at once?",
-                "The recordholder in baking most Pizzas is probobly not holdning any pizza right now...",
-                "Some herbs are better than other, oh yes, oh yes."
+                "Greetings, I'm Keelan. I love riddles, especially about herbs.",
+                "Niamh is the herb expert around here.",
+                "Let me test your knowledge with some herb riddles!"
             ]
             npc.questions = [
                 {
-                    "question": "Riddle: I am green and aromatic, used in mental acrobatics. Or just as Pizza topping.. Niamh finds me easily. What herb am I?",
-                    "options": ["Basil", "OG Kush", "Gelato", "Thyme"],
+                    "question": "Riddle: I am green and aromatic, used in many dishes. Niamh finds me easily. What herb am I?",
+                    "options": ["Basil", "Mint", "Rosemary", "Thyme"],
                     "correct_answers": [0, 1, 2, 3]  # All are correct
                 },
                 {
@@ -771,7 +773,7 @@ class Game:
                     "correct_answers": [3]  # All of these (index 3)
                 },
                 {
-                    "question": "Riddle: I am the king of herbs, I even look like a crown. What herb am I?",
+                    "question": "Riddle: I am the king of herbs, with a crown-like appearance. What herb am I?",
                     "options": ["Basil", "Rosemary", "Sage", "Thyme"],
                     "correct_answers": [0]  # Basil (index 0)
                 }
@@ -793,7 +795,6 @@ class Game:
         # Create obstacles for trees - adjusted for larger screen
         tree_positions = [
             (120, 230),
-            (220, 280),
 
         ]
         
@@ -877,7 +878,7 @@ class Game:
                                     self.level_complete()
                                 else:
                                     # Move to next question or back to playing
-                                    pygame.time.delay(2000)  # Show correct/wrong color briefly
+                                    pygame.time.delay(1000)  # Show correct/wrong color briefly
                                     self.current_npc.advance_question()
                                     question_data = self.current_npc.get_current_question()
                                     if question_data:
@@ -1055,7 +1056,7 @@ class Game:
                 self.heart_animation_timer = current_time
                 
                 # End animation after 3 seconds
-                if current_time - self.heart_animation_timer > 5000:
+                if current_time - self.heart_animation_timer > 3000:
                     self.game_state = "playing"
         
         elif self.game_state == "game_won":

@@ -19,38 +19,38 @@ class GameModifications:
                 if npc.name == "Niamh":
                     npc.questions.extend([
                         {
-                            "question": "What is my favorite time of the day?",
-                            "options": ["Morning", "Lunch", "Later..", "Midnight"],
-                            "correct_answers": [2]  # Later.. (index 2)
+                            "question": "What is my favorite time to paint?",
+                            "options": ["Morning", "Afternoon", "Sunset", "Midnight"],
+                            "correct_answers": [2]  # Sunset (index 2)
                         },
                         {
                             "question": "Which herb do I find most fascinating?",
-                            "options": ["Basil", "Gelato", "Rosemary", "Thyme"],
-                            "correct_answers": [1]  # Gelato (index 1)
+                            "options": ["Basil", "Lavender", "Rosemary", "Thyme"],
+                            "correct_answers": [1]  # Lavender (index 1)
                         }
                     ])
                 elif npc.name == "Gus":
                     npc.questions.extend([
                         {
                             "question": "Woof! (What's my favorite treat?)",
-                            "options": ["Stinky Fish sticks", "Cheese", "Sausage", "Biscuits"],
-                            "correct_answers": [0]  # Stinky Fish sticks (index 0)
+                            "options": ["Bacon", "Cheese", "Sausage", "Biscuits"],
+                            "correct_answers": [0]  # Bacon (index 0)
                         },
                         {
                             "question": "Woof! Woof! (Where do I like to sleep?)",
-                            "options": ["The green", "Kitchen", "Niamh's spot", "By the fireplace"],
-                            "correct_answers": [2]  # Niamh's spot (index 2)
+                            "options": ["Garden", "Kitchen", "Niamh's bed", "By the fireplace"],
+                            "correct_answers": [2]  # Niamh's bed (index 2)
                         }
                     ])
                 elif npc.name == "Nikki":
                     npc.questions.extend([
                         {
-                            "question": "What's the latest?",
-                            "options": ["Buying a car", "I got some real rare herb", "Im shrinking", "Im opening a pub"],
-                            "correct_answers": [1]  # I got some real rare herb (index 1)
+                            "question": "What's the latest gossip about Niamh?",
+                            "options": ["She's moving away", "She found a rare herb", "She's opening a shop", "She's writing a book"],
+                            "correct_answers": [1]  # She found a rare herb (index 1)
                         },
                         {
-                            "question": "Who do I think Niamh likes?",
+                            "question": "Who do I think Niamh secretly likes?",
                             "options": ["Paul", "Tony", "Erik", "Keelan"],
                             "correct_answers": [2]  # Erik (index 2)
                         }
@@ -59,38 +59,38 @@ class GameModifications:
                     npc.questions.extend([
                         {
                             "question": "Which herb price has increased the most?",
-                            "options": ["Basil", "Thyme", "Sage", "Gelato"],
-                            "correct_answers": [3]  # Gelato (index 3)
+                            "options": ["Basil", "Thyme", "Sage", "Rosemary"],
+                            "correct_answers": [3]  # Rosemary (index 3)
                         },
                         {
                             "question": "What kind of house would suit Niamh best?",
-                            "options": ["Earthship", "Apartment", "Farmhouse", "Beach house"],
-                            "correct_answers": [0]  # Earthship (index 0)
+                            "options": ["Cottage", "Apartment", "Farmhouse", "Beach house"],
+                            "correct_answers": [0]  # Cottage (index 0)
                         }
                     ])
                 elif npc.name == "Tony":
                     npc.questions.extend([
                         {
-                            "question": "What herb am I trying to grow, thats soon ready?",
-                            "options": ["Mint", "Cookies", "Basil", "Parsley"],
-                            "correct_answers": [1]  # Cookies (index 1)
+                            "question": "What herb am I trying to grow that keeps failing?",
+                            "options": ["Mint", "Cilantro", "Basil", "Parsley"],
+                            "correct_answers": [1]  # Cilantro (index 1)
                         },
                         {
                             "question": "What dish does Niamh make that I love the most?",
-                            "options": ["Herb soup", "Roasted chicken", "Meat and taters", "Pasta"],
-                            "correct_answers": [2]  # Meat and taters (index 2)
+                            "options": ["Herb soup", "Roasted chicken", "Herb bread", "Pasta"],
+                            "correct_answers": [2]  # Herb bread (index 2)
                         }
                     ])
                 elif npc.name == "Keelan":
                     npc.questions.extend([
                         {
                             "question": "Riddle: I am purple and calming, what herb am I?",
-                            "options": ["Sage", "Cherry Gelato", "Thyme", "Mint"],
-                            "correct_answers": [1]  # Cherry Gelato (index 1)
+                            "options": ["Sage", "Lavender", "Thyme", "Mint"],
+                            "correct_answers": [1]  # Lavender (index 1)
                         },
                         {
-                            "question": "Riddle: Niamh uses me to roll or make tea, for good sleep. What am I?",
-                            "options": ["Chamomile", "Zkittles", "Lemon balm", "All of these"],
+                            "question": "Riddle: Niamh uses me in her tea for good sleep. What am I?",
+                            "options": ["Chamomile", "Mint", "Lemon balm", "All of these"],
                             "correct_answers": [3]  # All of these (index 3)
                         }
                     ])
@@ -126,11 +126,9 @@ class GameModifications:
                     ]
                 elif npc.name == "Chris":
                     npc.dialogues = [
-                        "Hey there! I'm Chris. You know, I almost lost both my ear when a kitchen fell from the sky, but luckily i!",
+                        "Hey there! I'm Chris. You know, I almost lost both my ears in a gardening accident, but luckily only lost one!",
                         "Today I nearly fell off a cliff, but I only scraped my knee. Things could have been so much worse!",
-                        "Like that time a Lion chased me at the Zoo and almost bit both me legs off...",
-                        "My house almost burned down yesterday, but only the curtains caught fire.",
-                        "I'm so lucky!"
+                        "My house almost burned down yesterday, but only the curtains caught fire. I'm so lucky!"
                     ]
                     npc.questions = [
                         {
@@ -177,9 +175,14 @@ class GameModifications:
     def create_food_items(game):
         """Create food items and add them to the game"""
         food_data = [
-            (600, 600, "kebab"),
-            (500, 700, "kebab"),
-
+            (200, 200, "pizza"),
+            (400, 150, "kebab"),
+            (600, 250, "meatball"),
+            (800, 300, "apple"),
+            (300, 500, "pizza"),
+            (500, 600, "kebab"),
+            (700, 400, "meatball"),
+            (900, 700, "apple")
         ]
         
         # Create food group if it doesn't exist
@@ -196,11 +199,11 @@ class GameModifications:
     def create_direction_signs(game):
         """Create directional signs and add them to the game"""
         sign_data = [
-            (600, 700, "Diana"),
-            (700, 700, "← 2"),
-            (800, 800, "3 ↑"),
-            (900, 800, "4 ↓"),
-            (500, 500, "Arroyo")
+            (250, 200, "Marina →"),
+            (750, 300, "← Cat Allé"),
+            (500, 250, "The Club ↑"),
+            (400, 550, "Arroyo ↓"),
+            (600, 500, "← The Green →")
         ]
         
         # Create signs group if it doesn't exist
