@@ -1049,7 +1049,10 @@ class Game:
             # Update Gus's movement around Niamh if available
             if self.gus_movement:
                 self.gus_movement.update()
-                
+            
+            # Update speech bubbles
+            self.speech_bubble.update(self.clock.get_time(), self.npcs)  
+            
             # Update NPC movements
             for handler in self.npc_movement_handlers.values():
                 handler.update()
@@ -1129,6 +1132,9 @@ class Game:
         
         # Draw energy bar
         self.energy_bar.draw(self.screen)
+        
+        # Draw speech bubbles
+        self.speech_bubble.draw(self.screen, self.npcs)
         
         # Draw sound status
         sound_status = "Sound: ON" if SOUND_ENABLED else "Sound: OFF"

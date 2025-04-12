@@ -105,7 +105,9 @@ class GameModifications:
                     npc.dialogues = [
                         "Good day, old chap! I'm Tain. Have you heard about the fascinating migratory patterns of the Arctic Tern?",
                         "Jolly good to see you! Did you know that a skateboard's wheels are made of polyurethane? Quite remarkable, isn't it? Ha ha ha!",
-                        "I say, have you heard about the Eurasian Blue Tit? Marvelous little bird! *adjusts imaginary monocle* Ha ha ha!"
+                        "I say..",
+                        "Have you heard about the Eurasian Blue Tit? Marvelous little bird I must say.",
+                        "Man that hillarious *adjusts imaginary monocle* Ha ha ha!"
                     ]
                     npc.questions = [
                         {
@@ -168,8 +170,8 @@ class GameModifications:
                         },
                         {
                             "question": "Favorite color of dogs what is?",
-                            "options": ["Blue", "Red", "Green", "Dogs can't see many colors"],
-                            "correct_answers": [3]  # Dogs can't see many colors
+                            "options": ["Blue", "Red", "Green", "Snack-Brown"],
+                            "correct_answers": [3]  # Snack-Brown
                         }
                     ]
     
@@ -196,11 +198,9 @@ class GameModifications:
     def create_direction_signs(game):
         """Create directional signs and add them to the game"""
         sign_data = [
-            (600, 700, "Diana"),
-            (700, 700, "← 2"),
-            (800, 800, "3 ↑"),
-            (900, 800, "4 ↓"),
-            (500, 500, "Arroyo")
+            (600, 550, "Home"),
+            (900, 350, "Aeropuerto"),
+            (150, 450, "Torrequebrada")
         ]
         
         # Create signs group if it doesn't exist

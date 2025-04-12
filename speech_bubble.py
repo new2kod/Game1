@@ -14,7 +14,7 @@ class SpeechBubble:
             'Nikki': ["Hi there!", "Garden party anyone?", "What theme should I choose?"],
             'Paul': ["Where did I park?", "When did I park it?", "Did I park my car?"],
             'Tony': ["Pitu won't let me drive!", "She ate all the snacks!", "She drives better than me!"],
-            'Keelan': ["I love pizza!", "Fine salami is the best!", "Want to hear a riddle?"],
+            'Keelan': ["I love pizza!", "GABAGOOL!", "Want to hear a riddle?"],
             'Tain': ["Good day, old chap!", "Fascinating migratory patterns!", "Ha ha ha!"],
             'Chris': ["I almost lost my ear!", "A kitchen fell from the sky!", "I love cool games!"],
             'Magda': ["Dogs feelings hurt when you no pet them.", "Sad dogs I see in rain.", "Dogs dream about running, yes?"]
@@ -22,7 +22,7 @@ class SpeechBubble:
         
         # Initialize timers for each NPC
         for name in self.speech_phrases.keys():
-            self.bubble_timers[name] = random.randint(0, 10000)  # Random initial delay
+            self.bubble_timers[name] = random.randint(0, 3000)  # Random initial delay
             self.active_bubbles[name] = None
     
     def update(self, dt, npcs):
@@ -43,12 +43,12 @@ class SpeechBubble:
                         # Create new speech bubble
                         self.active_bubbles[name] = {
                             "text": random.choice(self.speech_phrases[name]),
-                            "timer": 5000  # Show for 3 seconds
+                            "timer": 80000  # Show for 5 seconds
                         }
                     else:
                         # Hide speech bubble
                         self.active_bubbles[name] = None
-                        self.bubble_timers[name] = 15000  # 30 seconds until next bubble
+                        self.bubble_timers[name] = 30000  # 30 seconds until next bubble
                 
                 # Update active bubble timer
                 if self.active_bubbles[name] is not None:
