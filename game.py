@@ -8,6 +8,7 @@ from food import Food
 from sign import Sign
 from npc_movement import NPCMovement
 from game_modifications import GameModifications
+from speech_bubble import SpeechBubble
 
 # Initialize pygame
 pygame.init()
@@ -510,7 +511,10 @@ class Game:
         self.correct_answers = 0
         self.required_correct_answers = 5
         self.game_state = "playing"  # playing, dialogue, question, level_complete, game_won
-        
+       
+        # Create speech bubble system
+        self.speech_bubble = SpeechBubble()
+       
         # Load assets
         self.load_assets()
         

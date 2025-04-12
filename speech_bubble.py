@@ -22,7 +22,7 @@ class SpeechBubble:
         
         # Initialize timers for each NPC
         for name in self.speech_phrases.keys():
-            self.bubble_timers[name] = random.randint(0, 30000)  # Random initial delay
+            self.bubble_timers[name] = random.randint(0, 10000)  # Random initial delay
             self.active_bubbles[name] = None
     
     def update(self, dt, npcs):
@@ -43,12 +43,12 @@ class SpeechBubble:
                         # Create new speech bubble
                         self.active_bubbles[name] = {
                             "text": random.choice(self.speech_phrases[name]),
-                            "timer": 3000  # Show for 3 seconds
+                            "timer": 5000  # Show for 3 seconds
                         }
                     else:
                         # Hide speech bubble
                         self.active_bubbles[name] = None
-                        self.bubble_timers[name] = 30000  # 30 seconds until next bubble
+                        self.bubble_timers[name] = 15000  # 30 seconds until next bubble
                 
                 # Update active bubble timer
                 if self.active_bubbles[name] is not None:
