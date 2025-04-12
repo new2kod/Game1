@@ -9,20 +9,21 @@ class SpeechBubble:
         
         # Speech phrases for each character
         self.speech_phrases = {
-            'Niamh': ["I'm Niamh!", "I love painting!", "Herbs are fascinating!"],
-            'Gus': ["Woof! Woof!", "I love kiffiffeffess!", "Treats please!"],
-            'Nikki': ["Hi there!", "Garden party anyone?", "What theme should I choose?"],
-            'Paul': ["Where did I park?", "When did I park it?", "Did I park my car?"],
-            'Tony': ["Pitu won't let me drive!", "She ate all the snacks!", "She drives better than me!"],
+            'Niamh': ["I'm Niamh!", "I love painting!", "Gus come back here!"],
+            'Gus': ["Woof! Woof!", "Ima good boy!", "Snacks please!"],
+            'Nikki': ["Hi there!", "Garden party anyone?", "Pssst, wanna hear the latest?"],
+            'Paul': ["Where did I park?", "Did I park the car?", "I have to be at the Airport!"],
+            'Tony': ["Pitu won't let me drive!", "Pitu ate all the cookie!", "Pitu drives better than me!"],
             'Keelan': ["I love pizza!", "GABAGOOL!", "Want to hear a riddle?"],
             'Tain': ["Good day, old chap!", "Fascinating migratory patterns!", "Ha ha ha!"],
-            'Chris': ["I almost lost my ear!", "A kitchen fell from the sky!", "I love cool games!"],
-            'Magda': ["Dogs feelings hurt when you no pet them.", "Sad dogs I see in rain.", "Dogs dream about running, yes?"]
+            'Chris': ["I almost lost my ear!", "A kitchen fell from the sky!", "Bloody wankers!"],
+            'Magda': ["Dogs feelings hurt when you no pet them.", "Sad dogs I see in rain.", "Maaaartin?",  "Dogs dream about running, yes?"],
+            'Ivan': ["Hey, let's play some pool!", "Is my hair okay?", ""]
         }
         
         # Initialize timers for each NPC
         for name in self.speech_phrases.keys():
-            self.bubble_timers[name] = random.randint(0, 15000)  # Random initial delay
+            self.bubble_timers[name] = random.randint(3000, 20000)  # Random initial delay
             self.active_bubbles[name] = None
     
     def update(self, dt, npcs):
@@ -49,7 +50,7 @@ class SpeechBubble:
                 self.active_bubbles[name]["timer"] -= dt
                 if self.active_bubbles[name]["timer"] <= 0:
                     self.active_bubbles[name] = None
-                    self.bubble_timers[name] = 30000  # 30 seconds until next bubble
+                    self.bubble_timers[name] = 15000  # 30 seconds until next bubble
     
     def draw(self, surface, npcs):
         # Draw speech bubbles for all NPCs

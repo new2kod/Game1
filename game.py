@@ -28,7 +28,7 @@ BLUE = (0, 0, 255)
 GRAY = (200, 200, 200)
 
 # Player movement speed
-PLAYER_SPEED = 3
+PLAYER_SPEED = 1
 
 # Global flag for sound availability
 SOUND_ENABLED = True
@@ -580,15 +580,11 @@ class Game:
         
         # Create food items
         GameModifications.create_food_items(self)
-        
-        # Create direction signs
-        GameModifications.create_direction_signs(self)
+       
         
         # Set up NPC movement
         GameModifications.setup_npc_movement(self)
         
-        # Update NPC positions - place Niamh in the middle
-        GameModifications.update_npc_positions(self)
         
         # Add new game functions
         GameModifications.add_game_functions(self)
@@ -619,15 +615,16 @@ class Game:
     def create_npcs(self):
         # Create NPCs at different positions on the island
         npc_data = [
-            (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2, "niamh", "Niamh"),
-            (SCREEN_WIDTH // 2 + 100, SCREEN_HEIGHT // 2, "gus", "Gus"),
+            (450, 580, "niamh", "Niamh"),
+            (450 + 100, 750, "gus", "Gus"),
             (700, 300, "nikki", "Nikki"),
-            (950, 450, "paul", "Paul"),
-            (75, 300, "tony", "Tony"),
-            (750, 650, "keelan", "Keelan"),
-            (500, 250, "tain", "Tain"),
-            (600, 500, "chris", "Chris"),
-            (400, 300, "magda", "Magda")
+            (880, 450, "paul", "Paul"),
+            (120, 350, "tony", "Tony"),
+            (720, 630, "keelan", "Keelan"),
+            (500, 290, "tain", "Tain"),
+            (600, 400, "chris", "Chris"),
+            (400, 290, "magda", "Magda"),
+            (250, 570, "ivan", "Ivan")
         ]
         
         for x, y, sprite_name, name in npc_data:
@@ -640,16 +637,17 @@ class Game:
         # Set up dialogues and questions for each NPC
         if npc.name == "Niamh":
             npc.dialogues = [
-                "HI there, I'm Niamhy! Im a real good painter, and I grow wee..",
-                "..I mean, herbs.. ",
-                "I also enjoy cooking. Maybe you'd like meatballs for dinner?",
-                "I'm usually in a better mood later in the day.",
-                "Lets watch en apisode of Kill Tony and I might kiss you later!"
+                "Hi there, I'm Niamhy! I love to paint and make stuff, but you already know that",
+                "Take a look in the drawer, there's some nice wee..",
+                "I mean, herbs. ",
+                "Maybe you'd like meatballs for dinner? Im the best at cooking! ",
+                "Lets see later, after Kill Tony. I'm usually in a better mood later in the day."
+            
             ]
             npc.questions = [
                 {
-                    "question": "What's my favorite aout of these? ",
-                    "options": ["Singing", "Painting", "Dancing", "Biking"],
+                    "question": "Im quite artistic, whats my speciality? ",
+                    "options": ["Singing", "Painting", "Kicking", "Biking"],
                     "correct_answers": [1]  # Painting (index 1)
                 },
                 {
@@ -659,19 +657,19 @@ class Game:
                 },
                 {
                     "question": "What do I make that's the best?",
-                    "options": ["Tweets", "Uber Bookings", "Cooking", "Farts"],
+                    "options": ["Tweets", "Uber Bookings", "Cooking", "Fart sounds"],
                     "correct_answers": [2]  # Cooking (index 2)
                 }
             ]
         elif npc.name == "Gus":
             npc.dialogues = [
                 "Woof, Woof! I'm Gus (the good boy!)",
-                "Wooh, flepp! Niamhy gives the best kiffesss & belly scrubbies",
+                "Wooh, flepp! Niamhy gives the best kisses-ess & belly scrubbies-ess",
                 "Woof! Whef, Niamh loves it when I wake her up in the morning!",
             ]
             npc.questions = [
                 {
-                    "question": "Woof! What am I out looking for?",
+                    "question": "Woof! What am I usually out looking for?",
                     "options": ["Bones", "Cats", "Toys", "Food"],
                     "correct_answers": [1]  # Cats (index 1)
                 },
@@ -681,9 +679,9 @@ class Game:
                     "correct_answers": [2]  # Niamh (index 2)
                 },
                 {
-                    "question": "Woof! (What do I want right now?)",
-                    "options": ["A walk", "A nap", "A ball", "To play"],
-                    "correct_answers": [2]  # A ball (index 2)
+                    "question": "I run super fast, even when I sleep! What do I catch when I drem?",
+                    "options": ["Paul", "Cars", "Balls", "Cats"],
+                    "correct_answers": [2, 3]  # A ball (index 2)
                 }
             ]
         elif npc.name == "Nikki":
@@ -705,32 +703,32 @@ class Game:
                 },
                 {
                     "question": "Who am I in this town?",
-                    "options": ["The mayor", "The gossip", "The teacher", "The doctor"],
-                    "correct_answers": [1]  # The gossip (index 1)
+                    "options": ["The Mayor", "The Gossip", "The Massage", "The Rapist"],
+                    "correct_answers": [1, 2, 3]  # Anyway..(index 1)
                 }
             ]
         elif npc.name == "Paul":
             npc.dialogues = [
                 "Hello there, I'm Paul. Have you seen the prices s lately?",
                 "It's outrageous! I dont know what to do..",
-                "I guess I'll just do what I always do.."
-                "Now where the FUCK DID I PARK ME CAR? "
+                "I guess I'll have to get to the Airport early.."
+                "Now where did I park the car..? "
             ]
             npc.questions = [
                 {
-                    "question": "Whats bothering me most?",
-                    "options": ["Weather", "Herb prices", "Dogs", "Fishing"],
+                    "question": "Whats bothering me the most? ..Its really concerning to say the least..",
+                    "options": ["Weather", "Herb Prices", "Dogs", "Fishing"],
                     "correct_answers": [1]  # Herb prices (index 1)
                 },
                 {
-                    "question": "Where the fuck did I park me car?",
+                    "question": "Where the fuck did I park me car just now?",
                     "options": ["Me, I did it.", "At home", "Over there", "Just here"],
                     "correct_answers": [1]  # At home (index 3)
                 },
                 {
-                    "question": "Where do I put the lemons?",
-                    "options": ["Down", "In a bag", "The trunk", "Back"],
-                    "correct_answers": [1]  # In a bag (index 1)
+                    "question": "When do I have to be at the Airport? ",
+                    "options": ["Today", "12pm", "5am", "Tomorrow"],
+                    "correct_answers": [0, 1, 2, 3]  # All are correct
                 }
             ]
         elif npc.name == "Tony":
@@ -738,14 +736,15 @@ class Game:
                 "Hey Mate, I'm Tony. I'm trying to make some cookies,",
                 "And get real baked mate, bake a cake mate..",
                 "Niamh makes the best cooking and baking though..",
+                "Maaan... Mate.",
                 "I wonder what her secret is for such incredicle cooking.",
-                "Man Im high.."
+                "Man Im so high right now I dont even know what Im saying.."
             ]
             npc.questions = [
                 {
                     "question": "What was I talking about again?",
-                    "options": ["Cookie", "Pitu", "Cake Bake Mate", "Melon"],
-                    "correct_answers": [2]  # Herbs (index 2)
+                    "options": ["Cookie", "Pitu", "Cake, Mate", "Melon"],
+                    "correct_answers": [2]  # Cake, Mate (index 2)
                 },
                 {
                     "question": "What does Niamh make that's the best?",
@@ -753,9 +752,9 @@ class Game:
                     "correct_answers": [1]  # Cooking (index 1)
                 },
                 {
-                    "question": "Pitu locked me out last night, what should I do?",
-                    "options": ["Say no Pitu", "Lock Pitu out", "Sleep on the sofa", "Baricade the door"],
-                    "correct_answers": [3]  # Baricade the door (index 1)
+                    "question": "Now, look here mate. Im baked as a cake. Wheres Pitu, can you spot her?",
+                    "options": ["Home", "In the car", "Arroyo", "Down There."],
+                    "correct_answers": [3]  # Down there (index 1)
                 }
             ]
         elif npc.name == "Keelan":
@@ -764,7 +763,7 @@ class Game:
                 "Pizza... goes well with herbs.",
                 "Did you know the Ovenstoven Mega 2000 can bake whole family at once?",
                 "The recordholder in baking most Pizzas is probobly not holdning any pizza right now...",
-                "Some herbs are better than other, oh yes, oh yes."
+                "Some herbs are better than other, oh yes."
             ]
             npc.questions = [
                 {
@@ -788,7 +787,7 @@ class Game:
     def create_obstacles(self):
         # Create obstacles for houses - adjusted for larger screen
         house_data = [
-            (150, 250, 60, 50),  # House 1
+
 
         ]
         
@@ -799,9 +798,45 @@ class Game:
         
         # Create obstacles for trees - adjusted for larger screen
         tree_positions = [
-            (120, 230),
-            (220, 280),
-
+            (25, 650),
+            (50, 650),
+            (75, 650),
+            (100, 650),
+            (125, 650),
+            (150, 650),
+            (175, 650),
+            (200, 650),
+            (225, 650),
+            (250, 650),
+            (275, 650),
+            (300, 650),
+            (325, 650),
+            (350, 650),
+            (375, 650),
+            (400, 680),
+            (425, 680),
+            (450, 680),
+            (475, 850),
+            (500, 850),
+            (525, 850),
+            (550, 850),
+            (575, 850),
+            (600, 850),
+            (625, 850),
+            (650, 850),
+            (675, 850),
+            (700, 850),
+            (725, 850),
+            (750, 680),
+            (775, 680),
+            (800, 680),
+            (825, 680),
+            (850, 680),
+            (875, 680),
+            (900, 680),
+            (925, 680),
+            (950, 680),
+            (975, 680),
         ]
         
         for x, y in tree_positions:

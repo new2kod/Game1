@@ -452,3 +452,36 @@ def create_sign_sprite():
         [None, None, None, None, None, None, BROWN, BROWN, None, None, None, None, None, None, None, None],
     ]
     return create_pixel_sprite(16, 16, pixel_data)
+
+def create_ivan_sprite():
+    """Create Ivan sprite - Cool pool player with short black hair, green shirt, blue pants"""
+    # 16x24 pixel sprite (16 wide, 24 tall)
+    pixel_data = [
+        # Head (rows 0-7)
+        [None, None, None, BLACK, BLACK, BLACK, BLACK, None, None, None, None, None, None, None, None, None],
+        [None, None, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, None, None, None, None, None, None, None, None],
+        [None, BLACK, BLACK, SKIN_LIGHT, SKIN_LIGHT, SKIN_LIGHT, SKIN_LIGHT, BLACK, None, None, None, None, None, None, None, None],
+        [None, BLACK, SKIN_LIGHT, SKIN_LIGHT, BLUE, SKIN_LIGHT, BLUE, SKIN_LIGHT, None, None, None, None, None, None, None, None],
+        [None, BLACK, SKIN_LIGHT, SKIN_LIGHT, SKIN_LIGHT, SKIN_LIGHT, SKIN_LIGHT, SKIN_LIGHT, None, None, None, None, None, None, None, None],
+        [None, BLACK, SKIN_LIGHT, SKIN_LIGHT, SKIN_LIGHT, RED, SKIN_LIGHT, SKIN_LIGHT, None, None, None, None, None, None, None, None],
+        [None, None, SKIN_LIGHT, SKIN_LIGHT, SKIN_LIGHT, SKIN_LIGHT, SKIN_LIGHT, None, None, None, None, None, None, None, None, None],
+        [None, None, None, SKIN_LIGHT, SKIN_LIGHT, SKIN_LIGHT, None, None, None, None, None, None, None, None, None, None],
+        # Body (rows 8-15)
+        [None, None, None, GREEN, GREEN, GREEN, GREEN, None, None, None, None, None, None, None, None, None],
+        [None, None, GREEN, GREEN, GREEN, GREEN, GREEN, GREEN, None, None, None, None, None, None, None, None],
+        [None, GREEN, GREEN, GREEN, GREEN, GREEN, GREEN, GREEN, GREEN, None, None, None, None, None, None, None],
+        [None, SKIN_LIGHT, GREEN, GREEN, GREEN, GREEN, GREEN, GREEN, SKIN_LIGHT, None, None, None, None, None, None, None],
+        [None, None, SKIN_LIGHT, GREEN, GREEN, GREEN, GREEN, SKIN_LIGHT, None, None, None, None, None, None, None, None],
+        [None, None, None, SKIN_LIGHT, SKIN_LIGHT, SKIN_LIGHT, SKIN_LIGHT, None, None, None, None, None, None, None, None, None],
+        # Legs (rows 16-23)
+        [None, None, None, BLUE, None, None, BLUE, None, None, None, None, None, None, None, None, None],
+        [None, None, None, BLUE, None, None, BLUE, None, None, None, None, None, None, None, None, None],
+        [None, None, None, BLUE, None, None, BLUE, None, None, None, None, None, None, None, None, None],
+        [None, None, None, BLUE, None, None, BLUE, None, None, None, None, None, None, None, None, None],
+        [None, None, None, BLUE, None, None, BLUE, None, None, None, None, None, None, None, None, None],
+        [None, None, None, BLUE, None, None, BLUE, None, None, None, None, None, None, None, None, None],
+        [None, None, BLUE, BLUE, None, None, BLUE, BLUE, None, None, None, None, None, None, None, None],
+        [None, BLUE, BLUE, None, None, None, None, BLUE, BLUE, None, None, None, None, None, None, None],
+    ]
+    return create_pixel_sprite(16, 24, pixel_data)
+    

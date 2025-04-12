@@ -174,6 +174,30 @@ class GameModifications:
                             "correct_answers": [3]  # Snack-Brown
                         }
                     ]
+                elif npc.name == "Ivan":
+                    npc.dialogues = [
+                    "Hey, I'm Ivan. You want to play a game of pool with me?",
+                    "And maybe later we even do another thing but I dont know what it is being called..?",
+                    "I want to ask you, was my hair O.K? ",
+                    "My brother was here so I had to go out. "
+                    ]
+                    npc.questions = [
+                    {
+                        "question": "Do you know when the pool tournament start?",
+                        "options": ["When Tony says", "When you say", "When Tero comes", "8 o'clock"],
+                        "correct_answers": [3]  # 8 o 'clock (index 1)
+                    },
+                    {
+                        "question": "Which ball do you aim for in a trick shot I love?",
+                        "options": ["Cue ball", "8-ball", "Stripes", "Solids"],
+                        "correct_answers": [1]  # 8-ball (index 1)
+                    },
+                    {
+                        "question": "What's my favorite pool game?",
+                        "options": ["Snooker", "9-ball", "8-ball", "Straight pool"],
+                        "correct_answers": [2]  # 8-ball (index 2)
+                    }
+                ]
     
     @staticmethod
     def create_food_items(game):
