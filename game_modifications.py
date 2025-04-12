@@ -105,8 +105,9 @@ class GameModifications:
                     npc.dialogues = [
                         "Good day, old chap! I'm Tain. Have you heard about the fascinating migratory patterns of the Arctic Tern?",
                         "Jolly good to see you! Did you know that a skateboard's wheels are made of polyurethane? Quite remarkable, isn't it? Ha ha ha!",
-                        "I say..",
+                        "I have to say..",
                         "Have you heard about the Eurasian Blue Tit? Marvelous little bird I must say.",
+                        "Oh man thats INSANE",
                         "Man that hillarious *adjusts imaginary monocle* Ha ha ha!"
                     ]
                     npc.questions = [
@@ -155,7 +156,9 @@ class GameModifications:
                     npc.dialogues = [
                         "Dogs feelings hurt when you no pet them. You think this true?",
                         "Sad dogs I see in rain. Why humans not give umbrella to dogs?",
-                        "Dogs dream about running, yes? Or they dream about humans? What you think?"
+                        "Dogs dream about running, yes? Or they dream about humans? What you think?",
+                        "Why dogs dont just order Glovo?",
+                        "Bronson is on his way in an Uber",
                     ]
                     npc.questions = [
                         {
@@ -179,6 +182,7 @@ class GameModifications:
                     "Hey, I'm Ivan. You want to play a game of pool with me?",
                     "And maybe later we even do another thing but I dont know what it is being called..?",
                     "I want to ask you, was my hair O.K? ",
+                    "Im at the beach scooter now, maybe we play pool later?",
                     "My brother was here so I had to go out. "
                     ]
                     npc.questions = [
@@ -204,7 +208,8 @@ class GameModifications:
         """Create food items and add them to the game"""
         food_data = [
             (500, 450, "kebab"),
-            (550, 500, "kebab"),
+            (550, 650, "kebab"),
+            (850, 550, "kebab"),
 
         ]
         

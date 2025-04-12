@@ -28,7 +28,7 @@ BLUE = (0, 0, 255)
 GRAY = (200, 200, 200)
 
 # Player movement speed
-PLAYER_SPEED = 1
+PLAYER_SPEED = 2
 
 # Global flag for sound availability
 SOUND_ENABLED = True
@@ -123,7 +123,28 @@ class NPC(pygame.sprite.Sprite):
         self.current_dialogue = 0
         self.current_question = 0
         self.wrong_answers = 0  # Track wrong answers
-        
+        self.question_order = []  # List to store shuffled question indices
+        self.dialogue_order = []  # List to store dialogue sequence (first + 3 random)
+        self.shuffle_questions()  # Initialize with shuffled question order
+        self.setup_dialogue_order()  # Initialize with first dialogue + 3 random
+
+    def shuffle_questions(self):
+        """Shuffle the order of questions."""
+        self.question_order = list(range(len(self.questions)))
+        random.shuffle(self.question_order)
+        self.current_question = 0  # Reset to start of new order
+
+    def setup_dialogue_order(self):
+        """Set up dialogue order: first dialogue, then 3 random from the rest."""
+        self.dialogue_order = [0]  # Always start with the first dialogue
+        if len(self.dialogues) > 1:
+            # Get indices of remaining dialogues (excluding the first)
+            remaining_indices = list(range(1, len(self.dialogues)))
+            # Randomly select up to 3 indices (or fewer if not enough dialogues)
+            selected_indices = random.sample(remaining_indices, min(3, len(remaining_indices)))
+            self.dialogue_order.extend(selected_indices)
+        self.current_dialogue = 0  # Reset to start of sequence
+
     def can_interact(self, player):
         # Calculate distance between player and NPC
         dx = self.rect.centerx - player.rect.centerx
@@ -133,31 +154,35 @@ class NPC(pygame.sprite.Sprite):
         return distance <= self.interaction_radius
     
     def get_current_dialogue(self):
-        if self.current_dialogue < len(self.dialogues):
-            return self.dialogues[self.current_dialogue]
+        if self.current_dialogue < len(self.dialogue_order):
+            dialogue_index = self.dialogue_order[self.current_dialogue]
+            return self.dialogues[dialogue_index]
         return None
     
     def advance_dialogue(self):
         self.current_dialogue += 1
-        if self.current_dialogue >= len(self.dialogues):
-            self.current_dialogue = 0
-            return True  # Dialogue completed
+        if self.current_dialogue >= len(self.dialogue_order):
+            self.setup_dialogue_order()  # Set up new sequence for next cycle
+            return True  # Dialogue sequence completed
         return False
     
     def get_current_question(self):
-        if self.current_question < len(self.questions):
-            return self.questions[self.current_question]
+        if self.current_question < len(self.question_order):
+            question_index = self.question_order[self.current_question]
+            return self.questions[question_index]
         return None
     
     def advance_question(self):
         self.current_question += 1
-        if self.current_question >= len(self.questions):
-            self.current_question = 0
+        if self.current_question >= len(self.question_order):
+            self.shuffle_questions()  # Reshuffle questions for the next cycle
             return True  # All questions asked
         return False
         
     def reset_wrong_answers(self):
         self.wrong_answers = 0
+        self.shuffle_questions()  # Reshuffle questions when resetting
+        self.setup_dialogue_order()  # Reset dialogue sequence
 
 class GusMovement:
     """Class to handle Gus's movement around Niamh with different speeds and patterns."""
@@ -238,11 +263,12 @@ class DialogueBox:
     def __init__(self, width, height):
         self.rect = pygame.Rect(50, 400, width - 100, 180)  # Fixed height of 180 pixels
         self.font = pygame.font.SysFont(None, 28)
-        self.name_font = pygame.font.SysFont(None, 32)
         self.active = False
         self.current_text = ""
         self.current_name = ""
         self.continue_text = "Press SPACE to continue or E to end"
+        # Cache for sprite images to avoid reloading
+        self.sprite_cache = {}
         
     def set_dialogue(self, text, name):
         self.current_text = text
@@ -262,9 +288,22 @@ class DialogueBox:
         pygame.draw.rect(surface, GRAY, self.rect)
         pygame.draw.rect(surface, BLACK, self.rect, 3)
         
-        # Draw name
-        name_surface = self.name_font.render(self.current_name, True, BLACK)
-        surface.blit(name_surface, (self.rect.x + 10, self.rect.y - 30))
+        # Draw NPC sprite instead of name
+        if self.current_name:
+            # Load sprite image if not cached
+            if self.current_name not in self.sprite_cache:
+                try:
+                    sprite_image = pygame.image.load(f'assets/images/{self.current_name.lower()}.png')
+                    # Scale sprite to a smaller size (e.g., 32x32 pixels)
+                    sprite_image = pygame.transform.scale(sprite_image, (320, 320))
+                    self.sprite_cache[self.current_name] = sprite_image
+                except pygame.error:
+                    # Fallback to empty surface if sprite not found
+                    self.sprite_cache[self.current_name] = pygame.Surface((32, 32), pygame.SRCALPHA)
+            
+            # Draw sprite above top-left corner
+            sprite_image = self.sprite_cache[self.current_name]
+            surface.blit(sprite_image, (self.rect.x + 10, self.rect.y - 42))  # Adjusted y to place above box
         
         # Draw text with word wrapping
         words = self.current_text.split(' ')
@@ -280,7 +319,7 @@ class DialogueBox:
             test_width = self.font.size(test_line)[0]
             
             if test_width > max_width:
-                text_surface = self.font.render(current_line, True, BLACK)
+                text_surface = self.font.render(current_line, True, WHITE)
                 surface.blit(text_surface, (x, y))
                 y += line_height
                 current_line = word + " "
@@ -289,19 +328,18 @@ class DialogueBox:
                 
         # Render the last line
         if current_line:
-            text_surface = self.font.render(current_line, True, BLACK)
+            text_surface = self.font.render(current_line, True, WHITE)
             surface.blit(text_surface, (x, y))
             
         # Draw continue prompt
-        continue_surface = self.font.render(self.continue_text, True, BLACK)
+        continue_surface = self.font.render(self.continue_text, True, WHITE)
         surface.blit(continue_surface, (self.rect.right - continue_surface.get_width() - 10, 
                                        self.rect.bottom - continue_surface.get_height() - 10))
 
 class QuestionBox:
     def __init__(self, width, height):
-        self.rect = pygame.Rect(50, 400, width - 100, 200)  # Fixed height of 200 pixels
+        self.rect = pygame.Rect(50, 400, width - 100, 200)  # Fixed height for question display
         self.font = pygame.font.SysFont(None, 28)
-        self.name_font = pygame.font.SysFont(None, 32)
         self.active = False
         self.current_question = ""
         self.current_name = ""
@@ -310,6 +348,8 @@ class QuestionBox:
         self.selected_option = None
         self.buttons = []
         self.continue_text = "Press E to end interaction"
+        # Cache for sprite images to avoid reloading
+        self.sprite_cache = {}
         
     def set_question(self, question, name, options, correct_answers):
         self.current_question = question
@@ -319,25 +359,51 @@ class QuestionBox:
         self.active = True
         self.selected_option = None
         
-        # Create buttons for options
+        # Create buttons for options with dynamic sizing
         self.buttons = []
-        button_width = 200
-        button_height = 40
-        button_spacing = 20
-        total_width = (button_width * 2) + button_spacing
-        start_x = (SCREEN_WIDTH - total_width) // 2
+        padding = 10
+        button_spacing = 10
+        max_width = (self.rect.width - 20) // len(options)  # Divide available width among options
+        start_y = self.rect.bottom + 10
         
+        # Calculate button sizes and total width
+        button_data = []
+        total_width = 0
         for i, option in enumerate(options):
-            row = i // 2
-            col = i % 2
-            x = start_x + (col * (button_width + button_spacing))
-            y = self.rect.bottom + 10 + (row * (button_height + 5))
+            # Render option text
+            option_text = f"{chr(65 + i)}. {option}"
+            text_surface = self.font.render(option_text, True, (0, 0, 0))
             
-            self.buttons.append({
-                'rect': pygame.Rect(x, y, button_width, button_height),
-                'text': option,
+            # Calculate button size based on text
+            button_width = min(text_surface.get_width() + padding * 2, max_width)
+            button_height = text_surface.get_height() + padding * 2
+            total_width += button_width
+            
+            button_data.append({
+                'width': button_width,
+                'height': button_height,
+                'text': option_text,
+                'text_surface': text_surface,
                 'index': i
             })
+            
+        # Add spacing to total width (except after the last button)
+        total_width += button_spacing * (len(options) - 1)
+        
+        # Calculate starting x to center the buttons
+        start_x = self.rect.centerx - total_width // 2
+        
+        # Assign button positions
+        current_x = start_x
+        for data in button_data:
+            button_rect = pygame.Rect(current_x, start_y, data['width'], data['height'])
+            self.buttons.append({
+                'rect': button_rect,
+                'text': data['text'],
+                'text_surface': data['text_surface'],
+                'index': data['index']
+            })
+            current_x += data['width'] + button_spacing
         
     def clear(self):
         self.active = False
@@ -369,11 +435,24 @@ class QuestionBox:
             
         # Draw question box background
         pygame.draw.rect(surface, GRAY, self.rect)
-        pygame.draw.rect(surface, BLACK, self.rect, 3)
+        pygame.draw.rect(surface, WHITE, self.rect, 3)
         
-        # Draw name
-        name_surface = self.name_font.render(self.current_name, True, BLACK)
-        surface.blit(name_surface, (self.rect.x + 10, self.rect.y - 30))
+        # Draw NPC sprite instead of name
+        if self.current_name:
+            # Load sprite image if not cached
+            if self.current_name not in self.sprite_cache:
+                try:
+                    sprite_image = pygame.image.load(f'assets/images/{self.current_name.lower()}.png')
+                    # Scale sprite to a smaller size (e.g., 32x32 pixels)
+                    sprite_image = pygame.transform.scale(sprite_image, (320, 320))
+                    self.sprite_cache[self.current_name] = sprite_image
+                except pygame.error:
+                    # Fallback to empty surface if sprite not found
+                    self.sprite_cache[self.current_name] = pygame.Surface((32, 32), pygame.SRCALPHA)
+            
+            # Draw sprite above top-left corner
+            sprite_image = self.sprite_cache[self.current_name]
+            surface.blit(sprite_image, (self.rect.x + 10, self.rect.y - 42))  # Adjusted y to place above box
         
         # Draw question with word wrapping
         words = self.current_question.split(' ')
@@ -389,7 +468,7 @@ class QuestionBox:
             test_width = self.font.size(test_line)[0]
             
             if test_width > max_width:
-                text_surface = self.font.render(current_line, True, BLACK)
+                text_surface = self.font.render(current_line, True, WHITE)
                 surface.blit(text_surface, (x, y))
                 y += line_height
                 current_line = word + " "
@@ -398,28 +477,43 @@ class QuestionBox:
                 
         # Render the last line
         if current_line:
-            text_surface = self.font.render(current_line, True, BLACK)
+            text_surface = self.font.render(current_line, True, WHITE)
             surface.blit(text_surface, (x, y))
             
-        # Draw option buttons
+        # Draw option buttons styled like speech bubbles
         for button in self.buttons:
-            color = GRAY
+            button_rect = button['rect']
+            text_surface = button['text_surface']
+            padding = 10
+            
+            # Determine button color
+            color = (255, 255, 255)  # White background like speech bubbles
             if self.selected_option == button['index']:
                 if button['index'] in self.correct_answers:
                     color = GREEN
                 else:
                     color = RED
                     
-            pygame.draw.rect(surface, color, button['rect'])
-            pygame.draw.rect(surface, BLACK, button['rect'], 2)
+            # Draw button background (rounded rectangle)
+            pygame.draw.rect(surface, color, button_rect, 0, 10)
+            pygame.draw.rect(surface, BLACK, button_rect, 2, 10)
             
-            option_text = f"{chr(65 + button['index'])}. {button['text']}"
-            text_surface = self.font.render(option_text, True, BLACK)
-            text_rect = text_surface.get_rect(center=button['rect'].center)
-            surface.blit(text_surface, text_rect)
+            # Draw text centered in button
+            text_x = button_rect.x + (button_rect.width - text_surface.get_width()) // 2
+            text_y = button_rect.y + (button_rect.height - text_surface.get_height()) // 2
+            surface.blit(text_surface, (text_x, text_y))
+            
+            # Draw pointer triangle at the bottom
+            pointer_points = [
+                (button_rect.centerx, button_rect.bottom),
+                (button_rect.centerx - 10, button_rect.bottom - 10),
+                (button_rect.centerx + 10, button_rect.bottom - 10)
+            ]
+            pygame.draw.polygon(surface, color, pointer_points)
+            pygame.draw.polygon(surface, BLACK, pointer_points, 2)
             
         # Draw end interaction prompt
-        continue_surface = self.font.render(self.continue_text, True, BLACK)
+        continue_surface = self.font.render(self.continue_text, True, WHITE)
         surface.blit(continue_surface, (self.rect.right - continue_surface.get_width() - 10, 
                                        self.rect.bottom - continue_surface.get_height() - 10))
 
@@ -526,7 +620,7 @@ class Game:
         self.signs = pygame.sprite.Group()
         
         # Create player
-        self.player = Player(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
+        self.player = Player(470, 470)
         self.all_sprites.add(self.player)
         
         # Create NPCs
@@ -639,9 +733,11 @@ class Game:
             npc.dialogues = [
                 "Hi there, I'm Niamhy! I love to paint and make stuff, but you already know that",
                 "Take a look in the drawer, there's some nice wee..",
-                "I mean, herbs. ",
+                "You (Erik) thinks I'm an expert on herbs, tastefully blending in perfect cooking!",
                 "Maybe you'd like meatballs for dinner? Im the best at cooking! ",
-                "Lets see later, after Kill Tony. I'm usually in a better mood later in the day."
+                "Hey did you hear it might storm?",
+                "Lets watch Kill Tony! I'm usually in a better mood later in the day."
+                "Gus had such a great poop yesterday!"
             
             ]
             npc.questions = [
@@ -666,6 +762,10 @@ class Game:
                 "Woof, Woof! I'm Gus (the good boy!)",
                 "Wooh, flepp! Niamhy gives the best kisses-ess & belly scrubbies-ess",
                 "Woof! Whef, Niamh loves it when I wake her up in the morning!",
+                "Pffffsst.. was that a fart?",
+                "I had such a great poop yesterday",
+                "Woof - I just saw a cat I swear",
+                
             ]
             npc.questions = [
                 {
@@ -711,7 +811,9 @@ class Game:
             npc.dialogues = [
                 "Hello there, I'm Paul. Have you seen the prices s lately?",
                 "It's outrageous! I dont know what to do..",
-                "I guess I'll have to get to the Airport early.."
+                "I guess I'll have to get to the Airport early..",
+                "Well, everythings calm and quiet now",
+                "I was there, I saw it myself",
                 "Now where did I park the car..? "
             ]
             npc.questions = [
@@ -735,10 +837,13 @@ class Game:
             npc.dialogues = [
                 "Hey Mate, I'm Tony. I'm trying to make some cookies,",
                 "And get real baked mate, bake a cake mate..",
-                "Niamh makes the best cooking and baking though..",
+                "Niamh makes the best cooking and baking, dough..",
                 "Maaan... Mate.",
                 "I wonder what her secret is for such incredicle cooking.",
-                "Man Im so high right now I dont even know what Im saying.."
+                "Man Im so high right now I dont even know what Im saying..",
+                "You should come over sometime, I have cookie.",
+                "911 man, it was an inside job mate!",
+                "911, b7.. a7 but thats the FATHER"
             ]
             npc.questions = [
                 {
@@ -761,9 +866,13 @@ class Game:
             npc.dialogues = [
                 "Greetings, I'm Keelan. I mumbleriddles and you know.. ",
                 "Pizza... goes well with herbs.",
+                "Herbs, so cool when you think about it.",
                 "Did you know the Ovenstoven Mega 2000 can bake whole family at once?",
-                "The recordholder in baking most Pizzas is probobly not holdning any pizza right now...",
-                "Some herbs are better than other, oh yes."
+                "The recordholder in baking most Pizzas doesnt hold any pizza right now dough...",
+                "Some herbs are better than other, oh yes.",
+                "Thats what I think",
+                "I'm a big fan of the Gabagool!"
+               
             ]
             npc.questions = [
                 {
@@ -1156,13 +1265,13 @@ class Game:
             sign.draw_text(self.screen)
         
         # Draw score and level
-        score_text = self.font.render(f"Score: {self.score}", True, BLACK)
+        score_text = self.font.render(f"Score: {self.score}", True, WHITE)
         self.screen.blit(score_text, (10, 10))
         
-        level_text = self.font.render(f"Level: {self.level}", True, BLACK)
+        level_text = self.font.render(f"Level: {self.level}", True, WHITE)
         self.screen.blit(level_text, (10, 50))
         
-        correct_text = self.font.render(f"Correct Answers: {self.correct_answers}/{self.required_correct_answers}", True, BLACK)
+        correct_text = self.font.render(f"Correct Answers: {self.correct_answers}/{self.required_correct_answers}", True, WHITE)
         self.screen.blit(correct_text, (10, 90))
         
         # Draw energy bar
@@ -1191,11 +1300,11 @@ class Game:
             self.screen.blit(heart_image, heart_rect)
             
             # Draw completion message
-            complete_text = self.font.render("Level Complete!", True, BLACK)
+            complete_text = self.font.render("Level Complete!", True, WHITE)
             complete_rect = complete_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 100))
             self.screen.blit(complete_text, complete_rect)
             
-            continue_text = self.font.render("Press SPACE to continue", True, BLACK)
+            continue_text = self.font.render("Press SPACE to continue", True, WHITE)
             continue_rect = continue_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 100))
             self.screen.blit(continue_text, continue_rect)
             
@@ -1206,11 +1315,11 @@ class Game:
                 self.screen.blit(self.heart_img, (heart_pos[0], heart_pos[1]))
             
             # Draw game won message
-            won_text = self.font.render("Game Won: Erik & Niamh Kiss!", True, BLACK)
+            won_text = self.font.render("Game Won: Erik & Niamh Kiss!", True, RED)
             won_rect = won_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 100))
             self.screen.blit(won_text, won_rect)
             
-            continue_text = self.font.render("Press SPACE to continue", True, BLACK)
+            continue_text = self.font.render("Press SPACE to continue", True, WHITE)
             continue_rect = continue_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 100))
             self.screen.blit(continue_text, continue_rect)
         

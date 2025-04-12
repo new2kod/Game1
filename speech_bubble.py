@@ -12,13 +12,13 @@ class SpeechBubble:
             'Niamh': ["I'm Niamh!", "I love painting!", "Gus come back here!"],
             'Gus': ["Woof! Woof!", "Ima good boy!", "Snacks please!"],
             'Nikki': ["Hi there!", "Garden party anyone?", "Pssst, wanna hear the latest?"],
-            'Paul': ["Where did I park?", "Did I park the car?", "I have to be at the Airport!"],
+            'Paul': ["Where did I park?", "Did I park the car?", "I'm at the Airport!", "I have to be at the Airport!"],
             'Tony': ["Pitu won't let me drive!", "Pitu ate all the cookie!", "Pitu drives better than me!"],
             'Keelan': ["I love pizza!", "GABAGOOL!", "Want to hear a riddle?"],
-            'Tain': ["Good day, old chap!", "Fascinating migratory patterns!", "Ha ha ha!"],
+            'Tain': ["Good day, old chap!", "Fascinating migratory patterns!", "Ha ha ha!", "Thats hillarious"],
             'Chris': ["I almost lost my ear!", "A kitchen fell from the sky!", "Bloody wankers!"],
-            'Magda': ["Dogs feelings hurt when you no pet them.", "Sad dogs I see in rain.", "Maaaartin?",  "Dogs dream about running, yes?"],
-            'Ivan': ["Hey, let's play some pool!", "Is my hair okay?", ""]
+            'Magda': ["Dogs feelings hurt when you no pet them.", "Sad dogs I see in rain.", "Maaaartin?", "0,3 of something", "Dogs dream about running, yes?"],
+            'Ivan': ["Hey, its Ivan", "let's play some pool!", "Is my hair okay?", "Do you have a shower?"]
         }
         
         # Initialize timers for each NPC
