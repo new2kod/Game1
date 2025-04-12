@@ -320,7 +320,7 @@ class QuestionBox:
         
         # Create buttons for options
         self.buttons = []
-        button_width = 150
+        button_width = 200
         button_height = 40
         button_spacing = 20
         total_width = (button_width * 2) + button_spacing
@@ -618,11 +618,11 @@ class Game:
             (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2, "niamh", "Niamh"),
             (SCREEN_WIDTH // 2 + 100, SCREEN_HEIGHT // 2, "gus", "Gus"),
             (700, 300, "nikki", "Nikki"),
-            (300, 350, "paul", "Paul"),
-            (100, 300, "tony", "Tony"),
-            (650, 600, "keelan", "Keelan"),
-            (500, 300, "tain", "Tain"),
-            (400, 400, "chris", "Chris"),
+            (950, 450, "paul", "Paul"),
+            (75, 300, "tony", "Tony"),
+            (750, 650, "keelan", "Keelan"),
+            (500, 250, "tain", "Tain"),
+            (600, 500, "chris", "Chris"),
             (400, 300, "magda", "Magda")
         ]
         
@@ -636,15 +636,15 @@ class Game:
         # Set up dialogues and questions for each NPC
         if npc.name == "Niamh":
             npc.dialogues = [
-                "Hello, I'm Niamh. I love Gus, painting & smok...",
-                "I mean, herbs.. ",
+                "HI there, I'm Niamhy! Im a real good painter, and I grow wee..",
+                "..I mean, herbs.. ",
                 "I also enjoy cooking. Maybe you'd like meatballs for dinner?",
                 "I'm usually in a better mood later in the day.",
-                "Get your shit together and I might give you a kiss!"
+                "Lets watch en apisode of Kill Tony and I might kiss you later!"
             ]
             npc.questions = [
                 {
-                    "question": "What do I enjoy doing most?",
+                    "question": "What's my favorite aout of these? ",
                     "options": ["Singing", "Painting", "Dancing", "Biking"],
                     "correct_answers": [1]  # Painting (index 1)
                 },
@@ -655,7 +655,7 @@ class Game:
                 },
                 {
                     "question": "What do I make that's the best?",
-                    "options": ["Tweets", "Uber Bookings", "Cooking", "Clothes"],
+                    "options": ["Tweets", "Uber Bookings", "Cooking", "Farts"],
                     "correct_answers": [2]  # Cooking (index 2)
                 }
             ]
@@ -663,7 +663,7 @@ class Game:
             npc.dialogues = [
                 "Woof, Woof! I'm Gus (the good boy!)",
                 "Wooh, flepp! Niamhy gives the best kiffesss & belly scrubbies",
-                "Woof! Whef, Fleppy Bebby! She loves it when I wake her up in the morning!",
+                "Woof! Whef, Niamh loves it when I wake her up in the morning!",
             ]
             npc.questions = [
                 {
@@ -684,9 +684,9 @@ class Game:
             ]
         elif npc.name == "Nikki":
             npc.dialogues = [
-                "Hi, I'm Nikki! Have you heard the latest gossip?",
+                "Hi, I'm Nikki! Have you heard the latest?",
                 "Everyone's talking about Niamh's amazing paintings!",
-                "Did you know she's also great at finding herbs?"
+                "Did you know she's also great with herbs?"
             ]
             npc.questions = [
                 {
@@ -707,46 +707,49 @@ class Game:
             ]
         elif npc.name == "Paul":
             npc.dialogues = [
-                "Hello there, I'm Paul. Have you seen the price of herbs lately?",
-                "It's outrageous! But Niamh always finds the best ones.",
-                "If only I knew where she gets them from..."
+                "Hello there, I'm Paul. Have you seen the prices s lately?",
+                "It's outrageous! I dont know what to do..",
+                "I guess I'll just do what I always do.."
+                "Now where the FUCK DID I PARK ME CAR? "
             ]
             npc.questions = [
                 {
-                    "question": "What am I concerned about?",
-                    "options": ["Weather", "Herb prices", "Housing", "Fishing"],
+                    "question": "Whats bothering me most?",
+                    "options": ["Weather", "Herb prices", "Dogs", "Fishing"],
                     "correct_answers": [1]  # Herb prices (index 1)
                 },
                 {
-                    "question": "Who finds the best herbs?",
-                    "options": ["Me (Paul)", "Tony", "Keelan", "Niamh"],
-                    "correct_answers": [3]  # Niamh (index 3)
+                    "question": "Where the fuck did I park me car?",
+                    "options": ["Me, I did it.", "At home", "Over there", "Just here"],
+                    "correct_answers": [1]  # At home (index 3)
                 },
                 {
-                    "question": "What do I want to know?",
-                    "options": ["Tomorrow's weather", "Where Niamh finds herbs", "How to cook", "When the next festival is"],
-                    "correct_answers": [1]  # Where Niamh finds herbs (index 1)
+                    "question": "Where do I put the lemons?",
+                    "options": ["Down", "In a bag", "The trunk", "Back"],
+                    "correct_answers": [1]  # In a bag (index 1)
                 }
             ]
         elif npc.name == "Tony":
             npc.dialogues = [
-                "Hey, I'm Tony. I'm trying to grow some herbs.",
-                "Niamh makes the best dishes with her herbs.",
-                "I wonder what her secret is for finding such good ones."
+                "Hey Mate, I'm Tony. I'm trying to make some cookies,",
+                "And get real baked mate, bake a cake mate..",
+                "Niamh makes the best cooking and baking though..",
+                "I wonder what her secret is for such incredicle cooking.",
+                "Man Im high.."
             ]
             npc.questions = [
                 {
-                    "question": "What am I trying to grow?",
-                    "options": ["Flowers", "Vegetables", "Herbs", "Fruit"],
+                    "question": "What was I talking about again?",
+                    "options": ["Cookie", "Pitu", "Cake Bake Mate", "Melon"],
                     "correct_answers": [2]  # Herbs (index 2)
                 },
                 {
                     "question": "What does Niamh make that's the best?",
-                    "options": ["Clothes", "Dishes", "Music", "Art"],
-                    "correct_answers": [1]  # Dishes (index 1)
+                    "options": ["Clothes", "Cooking", "Music", "Art"],
+                    "correct_answers": [1]  # Cooking (index 1)
                 },
                 {
-                    "question": "Pitu wont allow me in the bedroom any more.. What would Niamh do?",
+                    "question": "Pitu locked me out last night, what should I do?",
                     "options": ["Say no Pitu", "Lock Pitu out", "Sleep on the sofa", "Baricade the door"],
                     "correct_answers": [3]  # Baricade the door (index 1)
                 }

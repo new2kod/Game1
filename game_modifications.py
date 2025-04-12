@@ -177,8 +177,8 @@ class GameModifications:
     def create_food_items(game):
         """Create food items and add them to the game"""
         food_data = [
-            (600, 600, "kebab"),
-            (500, 700, "kebab"),
+            (500, 450, "kebab"),
+            (550, 500, "kebab"),
 
         ]
         
