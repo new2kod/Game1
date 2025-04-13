@@ -309,9 +309,9 @@ class GameModifications:
                     ]
                 elif npc.name == "Magda":
                     npc.dialogues = [
-                        "Im Magda but it doesnt really matter.",
+                        "Im Magda but I want to ask you about dogs, what do you think? Its really important!",
                         "Dogs feelings hurt when you no pet them. You think this true?",
-                          "Sad dogs I see in rain. Why humans not give umbrella to dogs?",
+                        "Sad dogs I see in rain. Why humans not give umbrella to dogs?",
                         "Dogs dream about running, yes? Or they dream about humans? What you think?",
                         "Dogs are smart, they too should get Glovo",
                         "Worried the dogs are, when food delivery late comes. Their sad eyes pierce my soul they do.",
@@ -319,6 +319,7 @@ class GameModifications:
                         "Emotions strong in small dogs they have. Big feelings in tiny bodies, yes.",
                         "Uber driver lost again he is. Anxious my little Pookie gets when dinner delayed is.",
                         "Treats in my pocket I keep. For when sad the doggie eyes become during long wait times.",
+                        "Maaaartn?! Oh I thought I saw him in that Taxi..",
                         "Delivery app confusing it is. Dogs understand not why food comes not when promised it was.",
                         "Alert my puppies become when phone notification sounds. Hope then disappointment they feel when wrong app it is.",
                         "Rain makes delivery slow it does. Wet paws and sad whimpers result they do.",
@@ -518,9 +519,9 @@ class GameModifications:
     def create_food_items(game):
         """Create food items and add them to the game"""
         food_data = [
-            (500, 550, "kebab"),
-            (550, 650, "kebab"),
-            (850, 550, "kebab"),
+            (550, 450, "kebab"),
+            (540, 470, "kebab"),
+            (1150, 450, "kebab"),
 
         ]
         

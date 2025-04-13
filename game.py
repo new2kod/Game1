@@ -14,8 +14,8 @@ from speech_bubble import SpeechBubble
 pygame.init()
 
 # Game constants
-SCREEN_WIDTH = 1000
-SCREEN_HEIGHT = 800
+SCREEN_WIDTH = 1200
+SCREEN_HEIGHT = 780
 FPS = 60
 TITLE = "Erik <3 Niamh"
 
@@ -375,7 +375,7 @@ class QuestionBox:
             text_surface = self.font.render(option_text, True, (0, 0, 0))
             
             # Calculate button size based on text
-            button_width = min(text_surface.get_width() + padding * 2, max_width)
+            button_width = min(text_surface.get_width() + padding * 2, max_width *1.5)
             button_height = text_surface.get_height() + padding * 2
             total_width += button_width
             
@@ -563,7 +563,7 @@ class SoundManager:
         
         # Set volume levels
         self.interaction_sound.set_volume(0.5)
-        self.correct_sound.set_volume(0.6)
+        self.correct_sound.set_volume(0.7)
         self.wrong_sound.set_volume(0.5)
         
         # Background music
@@ -709,16 +709,16 @@ class Game:
     def create_npcs(self):
         # Create NPCs at different positions on the island
         npc_data = [
-            (450, 580, "niamh", "Niamh"),
+            (550, 580, "niamh", "Niamh"),
             (450 + 100, 750, "gus", "Gus"),
-            (700, 300, "nikki", "Nikki"),
-            (880, 450, "paul", "Paul"),
-            (120, 350, "tony", "Tony"),
-            (720, 630, "keelan", "Keelan"),
-            (500, 290, "tain", "Tain"),
-            (600, 400, "chris", "Chris"),
-            (400, 290, "magda", "Magda"),
-            (250, 570, "ivan", "Ivan")
+            (825, 325, "nikki", "Nikki"),
+            (1125, 450, "paul", "Paul"),
+            (50, 300, "tony", "Tony"),
+            (700, 630, "keelan", "Keelan"),
+            (550, 310, "tain", "Tain"),
+            (675, 400, "chris", "Chris"),
+            (500, 300, "magda", "Magda"),
+            (200, 550, "ivan", "Ivan")
         ]
         
         for x, y, sprite_name, name in npc_data:
