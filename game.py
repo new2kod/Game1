@@ -28,7 +28,7 @@ BLUE = (0, 0, 255)
 GRAY = (200, 200, 200)
 
 # Player movement speed
-PLAYER_SPEED = 2
+PLAYER_SPEED = 5
 
 # Global flag for sound availability
 SOUND_ENABLED = True
@@ -173,7 +173,7 @@ class NPC(pygame.sprite.Sprite):
         return None
     
     def advance_question(self):
-        self.current_question += 1
+        self.current_question += 3
         if self.current_question >= len(self.question_order):
             self.shuffle_questions()  # Reshuffle questions for the next cycle
             return True  # All questions asked
@@ -190,7 +190,7 @@ class GusMovement:
         self.gus = gus_sprite
         self.niamh = niamh_sprite
         self.angle = 0
-        self.distance = 80  # Base distance from Niamh
+        self.distance = 120  # Base distance from Niamh
         self.speed = 0.01   # Base rotation speed
         self.pattern_timer = 0
         self.current_pattern = 0
@@ -563,7 +563,7 @@ class SoundManager:
         
         # Set volume levels
         self.interaction_sound.set_volume(0.5)
-        self.correct_sound.set_volume(0.4)
+        self.correct_sound.set_volume(0.6)
         self.wrong_sound.set_volume(0.5)
         
         # Background music
@@ -732,11 +732,11 @@ class Game:
         if npc.name == "Niamh":
             npc.dialogues = [
                 "Hi there, I'm Niamhy! I love to paint and make stuff, but you already know that",
-                "Take a look in the drawer, there's some nice wee..",
+                "Cadbury should make a Coconut flavored Choclate bar, that would be feckin ?",
                 "You (Erik) thinks I'm an expert on herbs, tastefully blending in perfect cooking!",
                 "Maybe you'd like meatballs for dinner? Im the best at cooking! ",
-                "Hey did you hear it might storm?",
-                "Lets watch Kill Tony! I'm usually in a better mood later in the day."
+                "Did you hear the fecking storm last night",
+                "Lets watch Kill Tony! I'm usually in a better mood later in the day.",
                 "Gus had such a great poop yesterday!"
             
             ]
@@ -765,6 +765,32 @@ class Game:
                 "Pffffsst.. was that a fart?",
                 "I had such a great poop yesterday",
                 "Woof - I just saw a cat I swear",
+                "Im a stinky big boy bobby Gus!",
+                "Woof! Niamh’s chicken dinner? Best in my tummy!",
+    "Arf arf! Saw a cat on the beach, swear it!",
+    "Pffft! That fart means I’m a happy boy!",
+    "Woof woof! Belly scrubbies from Niamh, oh yeah!",
+    "Grrf! Found a catspot, smells like pooping time!",
+    "Woof! Pooped on the beach, Niamh’s so proud!",
+    "Arf! Balls are life, chase ‘em all day!",
+    "Pffsst! Baths? No way, I’m a stinky Gus!",
+    "Woof! Niamh’s kisses make my tail go wild!",
+    "Woof woof! Treats? I’m sittin’ already!",
+    "Gus the good boy, rollin’ in piss, wooh!",
+    "Arf! Early mornin’ with Niamh? Best cuddles!",
+    "Woof! Cat ran by, I barked so loud!",
+    "Pffft! Smell that? It’s my proudest poop!",
+    "Woof woof! Niamh says ‘play,’ I’m ready!",
+    "Arf arf! Hate soap, love my stinky fur!",
+    "Woof! Dreamin’ of balls and cats, zoom zoom!",
+    "Grrf! Niamh’s home! Time to jump high!",
+    "Woof! Sniffed a catspot, it’s my treasure!",
+    "Pffsst! Farted again, I’m a smelly bob!",
+    "Arf! Bringin’ Niamh my ball, let’s go!",
+    "Woof woof! Poopin’ right makes me a good boy!",
+    "Woof! Cats make me bark, but I’m a good boy!",
+    "Arf! Niamh’s treats? I’d sit forev.. few seconds!",
+    "Woof! Stinky and proud, that’s Gus bob!"
                 
             ]
             npc.questions = [
@@ -782,56 +808,373 @@ class Game:
                     "question": "I run super fast, even when I sleep! What do I catch when I drem?",
                     "options": ["Paul", "Cars", "Balls", "Cats"],
                     "correct_answers": [2, 3]  # A ball (index 2)
-                }
+                },
+                {
+                    "question": "When I go down on my front legs, like this, what I want? ",
+                    "options": ["Go out", "Play", "Eat ass", "Sleep"],
+                    "correct_answers": [1]  # Play (index 2)
+                },
+                                {
+                    "question": "Woof! What I stink like?",
+                    "options": ["Coco", "Piss", "Cats", "Baths"],
+                    "correct_answers": [1]  # Piss (index 1)
+                },            
+                {
+        "question": "Woof! What’s my favorite thing to chase in the yard?",
+        "options": ["Birds", "Balls", "Sticks", "Clouds"],
+        "correct_answers": [1]  # Balls
+    },
+    {
+        "question": "Pffft! Who makes my tail wag the most with kisses?",
+        "options": ["Tony", "Niamh", "Erik", "Paul"],
+        "correct_answers": [1]  # Niamh
+    },
+    {
+        "question": "Woof woof! What do I love to sniff out on my walks?",
+        "options": ["Flowers", "Catspots", "Rocks", "Trees"],
+        "correct_answers": [1]  # Catspots
+    },
+    {
+        "question": "Arf! What’s the best treat Niamh gives me?",
+        "options": ["Carrots", "Bones", "Apples", "Bread"],
+        "correct_answers": [1]  # Bones
+    },
+    {
+        "question": "Woof! What do I do when Niamh gets home?",
+        "options": ["Sleep", "Bark", "Hide", "Jump"],
+        "correct_answers": [3]  # Jump
+    },
+    {
+        "question": "Grrf! Where do I love to get scrubbies?",
+        "options": ["Ears", "Back", "Belly", "Paws"],
+        "correct_answers": [2]  # Belly
+    },
+    {
+        "question": "Woof! What’s my favorite smell to roll in?",
+        "options": ["Grass", "Piss", "Soap", "Mud"],
+        "correct_answers": [1]  # Piss
+    },
+    {
+        "question": "Pfft! What do I leave in the yard that makes Niamh proud?",
+        "options": ["Toys", "Poop", "Holes", "Sticks"],
+        "correct_answers": [1]  # Poop
+    },
+    {
+        "question": "Woof! What do I hate smelling like after Niamh grabs me?",
+        "options": ["Treats", "Baths", "Cats", "Dirt"],
+        "correct_answers": [1]  # Baths
+    },
+    {
+        "question": "Arf arf! What’s my favorite thing to spot from the Balcony?",
+        "options": ["People", "Cars", "Cats", "Birds"],
+        "correct_answers": [2]  # Cats
+    },
+    {
+        "question": "Woof! What’s the tastiest thing Niamh cooks for me?",
+        "options": ["Soup", "Chicken", "Veggies", "Potato"],
+        "correct_answers": [1]  # Chicken Dinner
+    },
+    {
+        "question": "Gus is a good boy! What do I do to prove it?",
+        "options": ["Chew shoes", "Sit", "Run away", "Bark"],
+        "correct_answers": [1]  # Sit
+    },
+    {
+        "question": "Woof woof! What do I dream of catching besides Treats, Niamh & Balls?",
+        "options": ["Treats", "Cats", "Treats", "Niamh"],
+        "correct_answers": [1]  # Cats
+    },
+    {
+        "question": "Pffft! What sound do I make when I’m happy?",
+        "options": ["Growl", "Whine", "Fart", "Yawn"],
+        "correct_answers": [2]  # Fart
+    },
+    {
+        "question": "Woof! What do I do when I see a cat outside?",
+        "options": ["Sleep", "Bark", "Hide", "Eat"],
+        "correct_answers": [1]  # Bark
+    },
+    {
+        "question": "Arf! What’s my favorite place to poop?",
+        "options": ["Couch", "The Beach", "House", "Street"],
+        "correct_answers": [1]  # The Beach
+    },
+    {
+        "question": "Woof! What do I love more than a bath?",
+        "options": ["Treats", "Soap", "Water", "Shampoo"],
+        "correct_answers": [0]  # Treats
+    },
+    {
+        "question": "Grrf! What makes me wiggle all over?",
+        "options": ["Rain", "Belly rubs", "Loud noises", "Vacuums"],
+        "correct_answers": [1]  # Belly rubs
+    },
+    {
+        "question": "Woof woof! What do I do when Niamh says ‘treat’?",
+        "options": ["Run", "Sleep", "Growl", "Sit"],
+        "correct_answers": [3]  # Sit
+    },
+    {
+        "question": "Pffft! What smell makes me bark?",
+        "options": ["Piss", "Bobbies", "Cats", "Treats"],
+        "correct_answers": [1, 2]  # Other Bobbies & Cats
+    },
+    {
+        "question": "Woof! What do I bring to Niamh to play with?",
+        "options": ["Shoe", "Ball", "Sock", "Bone"],
+        "correct_answers": [1]  # Ball
+    },
+    {
+        "question": "Arf arf! What’s my favorite time with Niamh?",
+        "options": ["Bath time", "Walk time", "Sleep time", "Early morning"],
+        "correct_answers": [3]  # Early morning in bed.
+    },
+    {
+        "question": "Woof! What do I do if I smell a cat nearby?",
+        "options": ["Run home", "Bark", "Hide", "Whine"],
+        "correct_answers": [1, 3]  # Bark & Whine
+    },
+    {
+        "question": "Gus here! What’s my proudest moment?",
+        "options": ["Pooping right", "Getting wet", "Chewing stuff", "Hiding"],
+        "correct_answers": [0]  # Pooping right
+    },
+    {
+        "question": "Woof woof! What makes me the stinkiest good boy?",
+        "options": ["Treats", "Baths", "Piss", "Flowers"],
+        "correct_answers": [2]  # Piss
+    }
+                
             ]
         elif npc.name == "Nikki":
             npc.dialogues = [
-                "Hi, I'm Nikki! Have you heard the latest?",
-                "Everyone's talking about Niamh's amazing paintings!",
-                "Did you know she's also great with herbs?"
+    "Hi, I'm Nikki! Have you heard the latest?",
+    "Everyone's talking about Niamh's amazing paintings!",
+    "Did you know she's also great with herbs?",
+    "Oh, darling, spill the tea—what’s the latest you’ve heard lately?",
+    "I swear, my hands work magic at the massage table, but this paperwork is testing my patience!",
+    "Have you seen Tain's new hat? The whole town’s buzzing about it!",
+    "Nothing beats a garden party—flowers, chatter, and just a hint of scandal!",
+    "I’m drowning in paperwork, but a good gossip keeps my spirits high!",
+    "They call me the rapist, but some mishear it as ‘therapist’—can you believe it?",
+    "I heard Tony baked a cake that collapsed—oh, the drama in that basement!",
+    "A massage from me, and you’ll spill all your secrets—trust me!",
+    "I’m planning the next garden party; any ideas for the theme?",
+    "These documents won’t file themselves, but I’m smiling through it!",
+    "Did you catch wind of Magda’s latest Online order? Bigger than the last one!",
+    "My fingers are sore from filing, but they’re still ready for a good knead!",
+    "The town’s full of stories—stick with me, and you’ll hear them all!",
+    "I’m thinking lavender cocktails for the next garden bash—what do you say?",
+    "No matter how many papers pile up, I’ve got gossip to keep me going!"
             ]
             npc.questions = [
-                {
-                    "question": "What is Niamh known for in town?",
-                    "options": ["Dancing", "Singing", "Painting", "Writing"],
-                    "correct_answers": [2]  # Painting (index 2)
-                },
-                {
-                    "question": "What else is Niamh good at finding?",
-                    "options": ["Seashells", "Herbs", "Lost items", "Treasure"],
-                    "correct_answers": [1]  # Herbs (index 1)
-                },
-                {
-                    "question": "Who am I in this town?",
-                    "options": ["The Mayor", "The Gossip", "The Massage", "The Rapist"],
-                    "correct_answers": [1, 2, 3]  # Anyway..(index 1)
-                }
+    {
+        "question": "What is Niamh known for in town?",
+        "options": ["Dancing", "Singing", "Painting", "Writing"],
+        "correct_answers": [2]  # Painting (index 2)
+    },
+    {
+        "question": "What else is Niamh good at finding?",
+        "options": ["Seashells", "Herbs", "Lost items", "Treasure"],
+        "correct_answers": [1]  # Herbs (index 1)
+    },
+    {
+        "question": "Who am I in this town?",
+        "options": ["The Mayor", "The Gossip", "The Massage", "The Rapist"],
+        "correct_answers": [1, 2, 3]  # Anyway..(index 1)
+    },
+    {
+        "question": "What’s the latest thing Tain’s wearing that’s got everyone talking?",
+        "options": ["A scarf", "A hat", "Boots", "A cape"],
+        "correct_answers": [1]  # Hat (index 1)
+    },
+    {
+        "question": "What do I love to throw in town?",
+        "options": ["A dance party", "A book club", "A garden party", "A fishing contest"],
+        "correct_answers": [2]  # Garden party (index 2)
+    },
+    {
+        "question": "What have I been buried in lately?",
+        "options": ["Gardening", "Documents", "Shit", "Partying"],
+        "correct_answers": [1, 2]  # Documents & Shit(index 1)
+    },
+    {
+        "question": "What’s my nickname that some folks get wrong?",
+        "options": ["The Baker", "The Rapist", "The Florist", "The Artist"],
+        "correct_answers": [1]  # Rapist (misheard for therapist, index 1)
+    },
+    {
+        "question": "What’s Tony’s latest baking mishap?",
+        "options": ["Burnt bread", "A collapsed cake", "Salty cookies", "A missing pie"],
+        "correct_answers": [1]  # Collapsed cake (index 1)
+    },
+    {
+        "question": "What do I give that’s the best in town?",
+        "options": ["Advice", "Massages", "Recipes", "Stories"],
+        "correct_answers": [1]  # Massages (index 1)
+    },
+    {
+        "question": "What’s Pauls exaggerating about these days?",
+        "options": ["His tires", "Weed prices", "His records", "His shoes"],
+        "correct_answers": [1]  # Weed prices (index 1)
+    },
+    {
+        "question": "What do I say my massages make people do?",
+        "options": ["Sing", "Sleep", "Spill secrets", "Dance"],
+        "correct_answers": [2]  # Spill secrets (index 2)
+    },
+    {
+        "question": "What theme should we have for the garden party?",
+        "options": ["The Office", "Brassic", "The Club", "Refugees"],
+        "correct_answers": [1]  # Brassic (index 1)
+    },
+    {
+        "question": "What keeps me cheerful despite all the paperwork?",
+        "options": ["Gossip", "Music", "Food", "Books"],
+        "correct_answers": [0]  # Gossip (index 0)
+    },
+    {
+        "question": "What do I say about my hands at the massage table?",
+        "options": ["They’re strong", "They’re magic", "They’re quick", "They’re gentle"],
+        "correct_answers": [1]  # Magic (index 1)
+    },
+    {
+        "question": "What’s the town full of, according to me?",
+        "options": ["Secrets", "Flowers", "Stories", "Recipes"],
+        "correct_answers": [2]  # Stories (index 2)
+    },
+    {
+        "question": "What cocktail flavor did I mention for the party?",
+        "options": ["Mint", "Lavender", "Lemon", "Berry"],
+        "correct_answers": [1]  # Lavender (index 1)
+    },
+    {
+        "question": "What’s sore from all my filing documents and giving the rapist massages?",
+        "options": ["My neck", "My back", "My fingers", "My Crack"],
+        "correct_answers": [2]  # My Fingers (index 1)
+    },
+    {
+        "question": "What do I want to hear from you?",
+        "options": ["Your plans", "Your gossip", "Your recipes", "Your dreams"],
+        "correct_answers": [1]  # Gossip (index 1)
+    }
             ]
         elif npc.name == "Paul":
             npc.dialogues = [
-                "Hello there, I'm Paul. Have you seen the prices s lately?",
-                "It's outrageous! I dont know what to do..",
-                "I guess I'll have to get to the Airport early..",
-                "Well, everythings calm and quiet now",
-                "I was there, I saw it myself",
-                "Now where did I park the car..? "
+    "Hello there, I'm Paul. Have you seen the prices lately?",
+    "It's outrageous! I dont know what to do..",
+    "I guess I'll have to get to the Airport early..",
+    "Well, everythings calm and quiet now",
+    "I was there, I saw it myself",
+    "Now where did I park the car..?",
+    "These herb prices are bleeding me dry, I tell you!",
+    "Was it me who parked the car, or did someone move it?",
+    "I’ve got to be at the airport—yesterday, tomorrow, always!",
+    "I swear, my car’s playing hide-and-seek with me!",
+    "Who sets these herb prices? It’s highway robbery!",
+    "I’m rushing to the airport, but where’s my blasted car?",
+    "Calm? Quiet? Not with these prices climbing!",
+    "Did I leave my car at the terminal last week?",
+    "Herbs shouldn’t cost more than a plane ticket!",
+    "I need to catch a flight, but my car’s gone AWOL!",
+    "I checked the market—herb prices are still absurd!",
+    "Did I park near the airport, or am I losing it?",
+    "Tomorrow’s another airport dash—wish me luck!",
+    "These prices make me want to grow my own herbs!",
+    "I’d be fine if I could just find my darn car!"
             ]
             npc.questions = [
-                {
-                    "question": "Whats bothering me the most? ..Its really concerning to say the least..",
-                    "options": ["Weather", "Herb Prices", "Dogs", "Fishing"],
-                    "correct_answers": [1]  # Herb prices (index 1)
-                },
-                {
-                    "question": "Where the fuck did I park me car just now?",
-                    "options": ["Me, I did it.", "At home", "Over there", "Just here"],
-                    "correct_answers": [1]  # At home (index 3)
-                },
-                {
-                    "question": "When do I have to be at the Airport? ",
-                    "options": ["Today", "12pm", "5am", "Tomorrow"],
-                    "correct_answers": [0, 1, 2, 3]  # All are correct
-                }
+{
+        "question": "Whats bothering me the most? ..Its really concerning to say the least..",
+        "options": ["Weather", "Herb Prices", "Dogs", "Fishing"],
+        "correct_answers": [1]  # Herb Prices (index 1)
+    },
+    {
+        "question": "Where the fuck did I park me car just now?",
+        "options": ["Me, I did it.", "At home", "Over there", "Just here"],
+        "correct_answers": [1]  # At home (index 1)
+    },
+    {
+        "question": "When do I have to be at the Airport? ",
+        "options": ["Today", "12pm", "5am", "Tomorrow"],
+        "correct_answers": [0, 1, 2, 3]  # All are correct
+    },
+    {
+        "question": "What’s got me ready to pull my hair out?",
+        "options": ["Flight delays", "Herb prices", "Lost luggage", "Traffic"],
+        "correct_answers": [1]  # Herb prices (index 1)
+    },
+    {
+        "question": "Who might’ve parked my car last?",
+        "options": ["Me", "A friend", "Nobody", "I don’t know"],
+        "correct_answers": [3]  # I don’t know (index 3)
+    },
+    {
+        "question": "Why am I always rushing to the airport?",
+        "options": ["Vacation", "Business", "I don’t know", "Emergencies"],
+        "correct_answers": [2]  # I don’t know (index 2)
+    },
+    {
+        "question": "What’s more expensive than it should be?",
+        "options": ["Herbs", "Gas", "Tickets", "Coffee"],
+        "correct_answers": [0]  # Herbs (index 0)
+    },
+    {
+        "question": "Where did I last think I left my car?",
+        "options": ["The market", "The airport", "My driveway", "I forgot"],
+        "correct_answers": [3]  # I forgot (index 3)
+    },
+    {
+        "question": "What’s my biggest worry besides my car?",
+        "options": ["Missing flights", "Herb prices", "Weather", "Time"],
+        "correct_answers": [1]  # Herb prices (index 1)
+    },
+    {
+        "question": "When did I last deal with the airport?",
+        "options": ["Yesterday", "Last week", "Tomorrow", "All of them"],
+        "correct_answers": [3]  # All of them (index 3)
+    },
+    {
+        "question": "What do I say my car’s doing to me?",
+        "options": ["Breaking down", "Hiding", "Speeding", "Stalling"],
+        "correct_answers": [1]  # Hiding (index 1)
+    },
+    {
+        "question": "What do I compare herb prices to?",
+        "options": ["Gold", "Plane tickets", "Water", "Bread"],
+        "correct_answers": [1]  # Plane tickets (index 1)
+    },
+    {
+        "question": "What’s my state of mind about my car?",
+        "options": ["Confident", "Confused", "Relaxed", "Angry"],
+        "correct_answers": [1]  # Confused (index 1)
+    },
+    {
+        "question": "What do I want to do because of herb prices?",
+        "options": ["Quit", "Protest", "Grow my own", "Move"],
+        "correct_answers": [2]  # Grow my own (index 2)
+    },
+    {
+        "question": "Where do I wonder if my car’s parked?",
+        "options": ["The terminal", "Downtown", "My garage", "The shop"],
+        "correct_answers": [0]  # The terminal (index 0)
+    },
+    {
+        "question": "What’s never calm for me?",
+        "options": ["The weather", "My schedule", "Herb prices", "The airport"],
+        "correct_answers": [2]  # Herb prices (index 2)
+    },
+    {
+        "question": "What am I always losing track of?",
+        "options": ["My keys", "My car", "My phone", "My wallet"],
+        "correct_answers": [1]  # My car (index 1)
+    },
+    {
+        "question": "What do I call the herb prices?",
+        "options": ["Fair", "Robbery", "Bargain", "Stable"],
+        "correct_answers": [1]  # Robbery (index 1)
+    }
+
             ]
         elif npc.name == "Tony":
             npc.dialogues = [
@@ -853,8 +1196,8 @@ class Game:
                 },
                 {
                     "question": "What does Niamh make that's the best?",
-                    "options": ["Clothes", "Cooking", "Music", "Art"],
-                    "correct_answers": [1]  # Cooking (index 1)
+                    "options": ["Clothes", "Cooking", "Music", "Drw"],
+                    "correct_answers": [1, 3]  # Cooking & Art (index 1)
                 },
                 {
                     "question": "Now, look here mate. Im baked as a cake. Wheres Pitu, can you spot her?",
@@ -872,6 +1215,31 @@ class Game:
                 "Some herbs are better than other, oh yes.",
                 "Thats what I think",
                 "I'm a big fan of the Gabagool!"
+                "*Mumble* Píotsa’s art, aye, herbs make it heart.",
+                "Vintage cars, so grand… wish I had one to hand.",
+                "Gabagool on my pizza? *Mumble* That’s the dream, so.",
+                "Niamh’s fast, but I’ll race her ‘til the last!",
+                "Riddle me this: what’s cheesy and never amiss?",
+                "Ovenstoven Mega 2000, *mumble*, cooks pizza like a poem.",
+    "Basil’s the king, makes my heart sing.",
+    "Fashion’s my game, vintage style, no shame.",
+    "Ever hear a car purr? Like pizza dough, it stirs!",
+    "*Mumble mumble* Salami’s fine, but gabagool’s divine.",
+    "Pizza records? I’d bake ‘til the world shakes.",
+    "Humble’s the way, but my pizza saves the day.",
+    "Niamh brews tea with herbs, *mumble*, calms my words.",
+    "Old cars, chrome shine… wish one was mine.",
+    "Riddle: what’s round, tasty, and never hasty?",
+    "*Mumble* Thyme on pizza? Oh, it’s sublime.",
+    "My scarf’s vintage, aye, makes folks sigh.",
+    "Pizza’s my muse, with herbs I can’t lose.",
+    "Racing’s fun, but Niamh’s tough, *mumble*, run!",
+    "Gabagool’s the star, on pizza, it goes far.",
+    "Ever see a car race? Like pizza, sets the pace.",
+    "*Mumble* Sage is wise, lifts pizza to the skies.",
+    "Style’s not loud, but I’m quietly proud.",
+    "Pizza facts, so cool… like ovens, they rule.",
+    "Aye, *mumble*, life’s a riddle, pizza’s the middle."
                
             ]
             npc.questions = [
@@ -889,7 +1257,133 @@ class Game:
                     "question": "Riddle: I am the king of herbs, I even look like a crown. What herb am I?",
                     "options": ["Basil", "Rosemary", "Sage", "Thyme"],
                     "correct_answers": [0]  # Basil (index 0)
-                }
+                },
+                {
+        "question": "Riddle, *mumble*: I’m a pizza topping, meaty and fine, loved by Keelan, pairs with wine. What am I?",
+        "options": ["Pepperoni", "Gabagool", "Sausage", "Ham"],
+        "correct_answers": [1]  # Gabagool
+    },
+    {
+        "question": "Oi, riddle this: I’m a car from olden days, Keelan’s dream with retro blaze. What type am I?",
+        "options": ["Ford Mustang", "Toyota Corolla", "Honda Civic", "Tesla Roadster"],
+        "correct_answers": [0]  # Ford Mustang
+    },
+    {
+        "question": "*Mumble mumble*, riddle: I’m a herb on pizza, sharp and green, Niamh and I agree, it’s supreme. What am I?",
+        "options": ["Oregano", "Cilantro", "Mint", "Dill"],
+        "correct_answers": [0]  # Oregano
+    },
+    {
+        "question": "Riddle, so: I’m a race Keelan loves, not with cars but with Niamh’s gloves. Where do we dash?",
+        "options": ["Kitchen", "Garden", "Street", "Track"],
+        "correct_answers": [2]  # Street
+    },
+    {
+        "question": "Fact, *mumble*: Keelan’s pizza oven gets hot, aye. How hot can the Ovenstoven Mega 2000 go?",
+        "options": ["300°C", "400°C", "500°C", "600°C"],
+        "correct_answers": [2]  # 500°C
+    },
+    {
+        "question": "Riddle: I’m a salami so fine, Keelan’s choice for a pizza divine. What’s my name?",
+        "options": ["Prosciutto", "Chorizo", "Soppressata", "Gabagool"],
+        "correct_answers": [3]  # Gabagool
+    },
+    {
+        "question": "*Mumble* riddle: I’m a fashion piece Keelan wears, stylish and cool, shows he cares. What am I?",
+        "options": ["Sneakers", "Scarf", "Jacket", "Hat"],
+        "correct_answers": [2]  # Jacket
+    },
+    {
+        "question": "Riddle, aye: I’m a pizza Keelan makes, cheesy and grand, best in the land. What’s it called?",
+        "options": ["Margherita", "Pepperoni", "Gabagool Supreme", "Veggie"],
+        "correct_answers": [2]  # Gabagool Supreme
+    },
+    {
+        "question": "Fact: Keelan mumbles in Irish. What’s a word he might say for ‘pizza’?",
+        "options": ["Píotsa", "Cáca", "Arán", "Bia"],
+        "correct_answers": [0]  # Píotsa
+    },
+    {
+        "question": "Riddle: I’m a vintage car part Keelan loves, shiny and round, makes hearts throb. What am I?",
+        "options": ["Steering wheel", "Hubcap", "Headlight", "Mirror"],
+        "correct_answers": [1]  # Hubcap
+    },
+    {
+        "question": "*Mumble mumble*: I’m a herb Keelan uses, woody and strong, pizza’s not wrong. What am I?",
+        "options": ["Thyme", "Parsley", "Chives", "Tarragon"],
+        "correct_answers": [0]  # Thyme
+    },
+    {
+        "question": "Riddle: Keelan’s humble, but his pizza’s a hit. How many can he bake in one sit?",
+        "options": ["One", "Two", "Three", "Four"],
+        "correct_answers": [3]  # Four
+    },
+    {
+        "question": "Fact, so: Keelan races Niamh. Who usually wins, *mumble*?",
+        "options": ["Keelan", "Niamh", "Tie", "Nobody"],
+        "correct_answers": [1, 2]  # Tie (or Niamh)
+    },
+    {
+        "question": "Riddle: I’m a topping Keelan adores, spicy and bold, never ignored. What am I?",
+        "options": ["Olives", "Jalapeños", "Mushrooms", "Onions"],
+        "correct_answers": [1]  # Jalapeños
+    },
+    {
+        "question": "*Mumble* riddle: I’m a style Keelan rocks, not too loud, makes him proud. What’s it called?",
+        "options": ["Grunge", "Vintage", "Sporty", "Formal"],
+        "correct_answers": [1]  # Vintage
+    },
+    {
+        "question": "Riddle: I’m a pizza tool Keelan needs, spins the dough with ease. What am I?",
+        "options": ["Spatula", "Pizza peel", "Rolling pin", "Knife"],
+        "correct_answers": [1]  # Pizza peel
+    },
+    {
+        "question": "Fact: Keelan loves gabagool. What’s it made from, *mumble*?",
+        "options": ["Beef", "Pork", "Chicken", "Turkey"],
+        "correct_answers": [1]  # Pork
+    },
+    {
+        "question": "Riddle: I’m a car Keelan dreams of, fast and old, worth more than gold. What am I?",
+        "options": ["Chevy Camaro", "Ford Focus", "Kia Rio", "Nissan Leaf"],
+        "correct_answers": [0]  # Chevy Camaro
+    },
+    {
+        "question": "*Mumble mumble* riddle: I’m a herb for pizza, soft and wise, Keelan’s choice for tasty skies. What am I?",
+        "options": ["Sage", "Basil", "Mint", "Coriander"],
+        "correct_answers": [0]  # Sage
+    },
+    {
+        "question": "Riddle: Keelan’s humble, but his fashion’s grand. What’s his favorite clothing brand?",
+        "options": ["Gucci", "Volcom", "Nike", "Chino"],
+        "correct_answers": [1]  # Volcom
+    },
+    {
+        "question": "Fact: Keelan’s pizza record, *mumble*. How many pizzas in an hour, best guess?",
+        "options": ["5", "10", "15", "20"],
+        "correct_answers": [2]  # 15
+    },
+    {
+        "question": "Riddle: I’m a race Keelan loves, vintage cars, under stars. What’s it called?",
+        "options": ["Daytona", "Le Mans", "Monaco", "Indy"],
+        "correct_answers": [1]  # Le Mans
+    },
+    {
+        "question": "*Mumble* riddle: I’m a pizza Keelan crafts, simple yet neat, herb and meat. What’s it called?",
+        "options": ["Four Cheese", "Basil Gabagool", "Veggie Deluxe", "Meat Feast"],
+        "correct_answers": [1]  # Basil Gabagool
+    },
+    {
+        "question": "Riddle: I’m a fact Keelan shares, about pizza, shows he cares. What’s the oldest pizza topping?",
+        "options": ["Cheese", "Tomato", "Herbs", "Meat"],
+        "correct_answers": [0]  # Cheese
+    },
+    {
+        "question": "Riddle, *mumble*: I’m Keelan’s vibe, quiet and true, helps pizza shine, fashion too. What am I?",
+        "options": ["Pride", "Humility", "Confidence", "Humor"],
+        "correct_answers": [1]  # Humility
+    }
+
             ]
         # New NPCs will have their dialogues and questions set in GameModifications.setup_new_npcs()
     
